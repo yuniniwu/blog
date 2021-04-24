@@ -134,8 +134,12 @@ const GlobalStyle = createGlobalStyle`
   
   /* below is not part of css reset */
   body {
-    background-color: #e2e1e1;
+    background-color: #FFF;
   }
+  * {
+    outline: 1px solid lightcoral;
+  }
+
 `;
 
 export default GlobalStyle;

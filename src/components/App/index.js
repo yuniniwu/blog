@@ -1,1 +1,1 @@
-export { default } from './MessageBoard.js';
+export { default } from './App.js';
