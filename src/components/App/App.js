@@ -4,7 +4,11 @@ import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import HomePage from '../../pages/HomePage';
 import LoginPage from '../../pages/LoginPage';
+import RegisterPage from '../../pages/RegisterPage';
 import ArticlePage from '../../pages/ArticlePage';
+import AboutPage from '../../pages/AboutPage';
+import NewPostPage from '../../pages/NewPostPage';
+import EditPage from '../../pages/EditPage';
 import Header from '../Header';
 import { AuthContext } from '../../context.js';
 import { getMe } from '../../WebAPI';
@@ -39,11 +43,23 @@ export default function App() {
 
             {/* router */}
             <Switch>
+              <Route path='/about'>
+                <AboutPage />
+              </Route>
               <Route path='/login'>
                 <LoginPage />
               </Route>
+              <Route path='/register'>
+                <RegisterPage />
+              </Route>
               <Route path='/posts/:articleId'>
                 <ArticlePage />
+              </Route>
+              <Route path='/new-post'>
+                <NewPostPage />
+              </Route>
+              <Route path='/edit-page/:articleId'>
+                <EditPage />
               </Route>
               <Route exact path='/'>
                 <HomePage />

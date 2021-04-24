@@ -1,32 +1,38 @@
 import { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
-import { login, getMe } from '../../WebAPI';
-import { setAuthToken } from '../../utils.js';
+import { newPost } from '../../WebAPI';
 import { AuthContext } from '../../context.js';
 
 const Container = styled.div`
   max-width: 960px;
   margin: 0 auto;
   padding: 30px;
-`;
-
-const LoginForm = styled.form`
   font-size: 1.2rem;
 `;
 
-const TextInput = styled.input`
+const PostForm = styled.form``;
+
+const TitleInput = styled.input`
+  width: 70%;
   margin: 0 0 1rem 1rem;
   padding: 0.5rem;
   font-size: 1.2rem;
 `;
 
-const SubmitInput = styled.input`
-  text-decoration: none;
+const BodyInput = styled.textarea`
+  width: 90%;
+  height: 300px;
+  margin-bottom: 1rem;
   font-size: 1.2rem;
+`;
+
+const SubmitInput = styled.input`
+  display: block;
+  text-decoration: none;
+  background: #6699cc;
+  color: white;
   padding: 0.5rem 1rem;
-  background: #555;
-  color: #fff;
   cursor: pointer;
   transition: all 0.3s;
 
@@ -55,10 +61,10 @@ const ErrorMessage = styled.div`
   color: red;
 `;
 
-export default function LoginPage() {
-  const { setUser } = useContext(AuthContext);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+export default function NewPostPage() {
+  const { user } = useContext(AuthContext);
+  const [title, setTitle] = useState('');
+  const [body, setBody] = useState('');
   const [errMessage, setErrMessage] = useState('');
   const history = useHistory();
   // disabled submit button or not
@@ -66,34 +72,27 @@ export default function LoginPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    login(username, password).then((data) => {
+
+    newPost(title, body).then((data) => {
       if (data.ok === 0) {
         setIsDisabled(true);
         return setErrMessage(data.message);
       }
-      setAuthToken(data.token);
-
-      getMe().then((response) => {
-        if (response.ok !== 1) {
-          setAuthToken(null);
-          setIsDisabled(true);
-          return setErrMessage(response.message);
-        }
-        setUser(response.data);
-        history.push('/');
-      });
+      history.push('/');
+      alert('新增文章成功');
     });
-    setUsername('');
-    setPassword('');
+
+    setTitle('');
+    setBody('');
     setIsDisabled(false);
   };
 
-  const handleUserChange = (e) => {
-    setUsername(e.target.value);
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value);
   };
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+  const handleBodyChange = (e) => {
+    setBody(e.target.value);
   };
 
   const handleInputFocus = () => {
@@ -103,28 +102,23 @@ export default function LoginPage() {
 
   return (
     <Container>
-      <LoginForm onSubmit={handleSubmit}>
-        <div>
-          帳號:
-          <TextInput
-            value={username}
-            onChange={handleUserChange}
+      {user && (
+        <PostForm onSubmit={handleSubmit}>
+          文章標題
+          <TitleInput
+            value={title}
+            onChange={handleTitleChange}
             onFocus={handleInputFocus}
           />
-        </div>
-        <div>
-          密碼
-          <TextInput
-            value={password}
-            onChange={handlePasswordChange}
+          <BodyInput
+            value={body}
+            onChange={handleBodyChange}
             onFocus={handleInputFocus}
-            type='password'
           />
-        </div>
-
-        <SubmitInput type='submit' value={'登入'} disabled={isDisabled} />
-        {errMessage && <ErrorMessage>{errMessage}</ErrorMessage>}
-      </LoginForm>
+          <SubmitInput type='submit' value={'新增文章'} disabled={isDisabled} />
+          {errMessage && <ErrorMessage>{errMessage}</ErrorMessage>}
+        </PostForm>
+      )}
     </Container>
   );
 }

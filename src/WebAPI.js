@@ -33,3 +33,47 @@ export const getMe = () => {
     },
   }).then((res) => res.json());
 };
+
+export const register = (username, password, nickname) => {
+  return fetch(`${BASE_URL}/register`, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      nickname: nickname,
+      username: username,
+      password: password,
+    }),
+  }).then((res) => res.json());
+};
+
+export const newPost = (title, body) => {
+  const token = getAuthToken();
+  return fetch(`${BASE_URL}/posts`, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      title: title,
+      body: body,
+    }),
+  }).then((res) => res.json());
+};
+
+export const editPost = (title, body) => {
+  const token = getAuthToken();
+  return fetch(`${BASE_URL}/posts`, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      title: title,
+      body: body,
+    }),
+  }).then((res) => res.json());
+};

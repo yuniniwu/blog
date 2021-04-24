@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { getArticle } from '../../WebAPI';
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState, useContext } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { AuthContext } from '../../context.js';
 
 const Container = styled.div`
   max-width: 960px;
@@ -17,6 +18,7 @@ const ArticleContainer = styled.div`
 
 const Title = styled.h2`
   font-size: 1.5rem;
+  clear: both;
 `;
 
 const ArticleInfo = styled.div`
@@ -34,15 +36,44 @@ const ArticleBody = styled.p`
   white-space: pre-wrap;
 `;
 
-function Article({ articleId }) {
+const EditArticleButton = styled(Link)`
+  font-size: 1.2rem;
+  display: inline-block;
+  background: #555;
+  color: #fff;
+  border: 1px solid black;
+  text-decoration: none;
+  padding: 0.4rem 0.8rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  float: right;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+`;
+
+function Article({ articleId, user }) {
   const [article, setArticle] = useState([]);
+  const [isEdit, setIsEdit] = useState(false);
 
   useEffect(() => {
     getArticle(articleId).then((data) => setArticle(data));
   }, [articleId]);
 
+  useEffect(() => {
+    if (user.id === article.userId) {
+      setIsEdit(true);
+    }
+  }, [user, article.userId]);
+
   return (
     <ArticleContainer>
+      {isEdit && (
+        <EditArticleButton to={`/edit-page/${articleId}`} children='編輯文章' />
+      )}
+
       <Title>{article.title}</Title>
       <ArticleInfo>
         <Author>作者：{article.userId}</Author>
@@ -57,14 +88,16 @@ function Article({ articleId }) {
 
 Article.propTypes = {
   articleId: PropTypes.string,
+  user: PropTypes.object,
 };
 
 export default function ArticlePage() {
   let { articleId } = useParams();
+  const { user } = useContext(AuthContext);
 
   return (
     <Container>
-      <Article articleId={articleId}></Article>
+      <Article articleId={articleId} user={user}></Article>
     </Container>
   );
 }

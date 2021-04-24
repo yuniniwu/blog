@@ -74,21 +74,34 @@ export default function Header() {
       <LeftContainer>
         <Brand>我的第一個Blog</Brand>
         <NavList>
-          <NavItem to='/' $active={location.pathname === '/'}>
-            首頁
-          </NavItem>
+          <NavItem to='/' $active={location.pathname === '/'} children='首頁' />
+
           {user && (
-            <NavItem to='/new-post' $active={location.pathname === '/new-post'}>
-              發布文章
-            </NavItem>
+            <>
+              <NavItem
+                to='/new-post'
+                $active={location.pathname === '/new-post'}
+                children='發布文章'
+              />
+              <NavItem
+                to='/about'
+                $active={location.pathname === '/about'}
+                children='關於我'
+              />
+            </>
           )}
         </NavList>
       </LeftContainer>
       <NavList>
         {!user && (
-          <NavItem to='/login' $active={location.pathname === '/login'}>
-            登入
-          </NavItem>
+          <>
+            <NavItem to='/login' $active={location.pathname === '/login'}>
+              登入
+            </NavItem>
+            <NavItem to='/register' $active={location.pathname === '/register'}>
+              註冊
+            </NavItem>
+          </>
         )}
         {user && <NavItem onClick={handleLogout}>登出</NavItem>}
       </NavList>

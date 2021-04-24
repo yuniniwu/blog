@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
-import { login, getMe } from '../../WebAPI';
+import { register, getMe } from '../../WebAPI';
 import { setAuthToken } from '../../utils.js';
 import { AuthContext } from '../../context.js';
 
@@ -55,8 +55,9 @@ const ErrorMessage = styled.div`
   color: red;
 `;
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const { setUser } = useContext(AuthContext);
+  const [nickname, setNickname] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errMessage, setErrMessage] = useState('');
@@ -66,7 +67,7 @@ export default function LoginPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    login(username, password).then((data) => {
+    register(username, password, nickname).then((data) => {
       if (data.ok === 0) {
         setIsDisabled(true);
         return setErrMessage(data.message);
@@ -83,9 +84,14 @@ export default function LoginPage() {
         history.push('/');
       });
     });
+    setNickname('');
     setUsername('');
     setPassword('');
     setIsDisabled(false);
+  };
+
+  const handleNicknameChange = (e) => {
+    setNickname(e.target.value);
   };
 
   const handleUserChange = (e) => {
@@ -105,7 +111,15 @@ export default function LoginPage() {
     <Container>
       <LoginForm onSubmit={handleSubmit}>
         <div>
-          帳號:
+          暱稱：
+          <TextInput
+            value={nickname}
+            onChange={handleNicknameChange}
+            onFocus={handleInputFocus}
+          />
+        </div>
+        <div>
+          帳號：
           <TextInput
             value={username}
             onChange={handleUserChange}
@@ -113,7 +127,7 @@ export default function LoginPage() {
           />
         </div>
         <div>
-          密碼
+          密碼：
           <TextInput
             value={password}
             onChange={handlePasswordChange}
@@ -122,7 +136,7 @@ export default function LoginPage() {
           />
         </div>
 
-        <SubmitInput type='submit' value={'登入'} disabled={isDisabled} />
+        <SubmitInput type='submit' value={'註冊'} disabled={isDisabled} />
         {errMessage && <ErrorMessage>{errMessage}</ErrorMessage>}
       </LoginForm>
     </Container>
