@@ -63,9 +63,7 @@ function Article({ articleId, user }) {
   }, [articleId]);
 
   useEffect(() => {
-    if (user.id === article.userId) {
-      setIsEdit(true);
-    }
+    user && user.id === article.userId && setIsEdit(true);
   }, [user, article.userId]);
 
   return (

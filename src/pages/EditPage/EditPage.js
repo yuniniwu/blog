@@ -34,6 +34,7 @@ const SubmitInput = styled.input`
   color: white;
   padding: 0.5rem 1rem;
   cursor: pointer;
+  font-size: 1.2rem;
   transition: all 0.3s;
 
   &:hover {
@@ -51,7 +52,6 @@ const SubmitInput = styled.input`
     &:hover {
       transform: none;
     }
-
   `}
 `;
 
@@ -65,33 +65,35 @@ export default function EditPage() {
   const { articleId } = useParams();
   const { user } = useContext(AuthContext);
   const [article, setArticle] = useState([]);
-  const [title, setTitle] = useState(article.title);
-  const [body, setBody] = useState(article.body);
+  const [title, setTitle] = useState('');
+  const [body, setBody] = useState('');
   const [errMessage, setErrMessage] = useState('');
   const history = useHistory();
   // disabled submit button or not
   const [isDisabled, setIsDisabled] = useState(false);
 
-  // 驗證文章作者跟使用者是同一個人，發api再驗證？
+  useEffect(() => {
+    getArticle(articleId).then((data) => {
+      setArticle(data);
+    });
+  }, []);
 
   useEffect(() => {
-    getArticle(articleId).then((data) => setArticle(data));
-  }, [articleId]);
+    setTitle(article.title);
+    setBody(article.body);
+  }, [article]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    newPost(title, body).then((data) => {
+    editPost(articleId, title, body).then((data) => {
       if (data.ok === 0) {
         setIsDisabled(true);
         return setErrMessage(data.message);
       }
-      history.push('/');
-      alert('新增文章成功');
+      history.push(`/posts/${articleId}`);
+      alert('編輯成功');
     });
-
-    setTitle('');
-    setBody('');
     setIsDisabled(false);
   };
 
