@@ -71,7 +71,6 @@ function Article({ articleId, user }) {
       {isEdit && (
         <EditArticleButton to={`/edit-page/${articleId}`} children='編輯文章' />
       )}
-
       <Title>{article.title}</Title>
       <ArticleInfo>
         <Author>作者：{article.userId}</Author>

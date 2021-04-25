@@ -41,11 +41,46 @@ Post.propTypes = {
   post: PropTypes.object,
 };
 
-export default function HomePage() {
-  const [posts, setPosts] = useState([]);
+const PaginationWrap = styled.div`
+  /* width: 50%; */
+  /* margin: 0 auto; */
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 1.2rem;
+`;
+
+const Paginationlist = styled.a`
+  display: inline-block;
+  padding: 0.2rem;
+`;
+
+function Pagination({ length, limit }) {
+  const [page, setPage] = useState([]);
 
   useEffect(() => {
-    getPost().then((posts) => setPosts(posts));
+    setPage(Math.ceil(length / limit));
+  }, [length, limit]);
+
+  return (
+    <PaginationWrap>
+      <button>上一頁</button>
+      <Paginationlist>1</Paginationlist>
+      <Paginationlist>2</Paginationlist>
+      <Paginationlist>3</Paginationlist>
+      <button>下一頁</button>
+      <p>總共有 {page} 頁</p>
+    </PaginationWrap>
+  );
+}
+
+export default function HomePage() {
+  const [posts, setPosts] = useState([]);
+  const limit = 5;
+
+  // if (posts.length > limit)
+
+  useEffect(() => {
+    getPost(limit).then((posts) => setPosts(posts));
   }, []);
 
   return (
@@ -53,6 +88,7 @@ export default function HomePage() {
       {posts.map((post) => (
         <Post key={post.id} post={post} />
       ))}
+      <Pagination length={posts.length} limit={limit} />
     </Container>
   );
 }
