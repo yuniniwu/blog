@@ -136,9 +136,6 @@ const GlobalStyle = createGlobalStyle`
   body {
     background-color: #FFF;
   }
-  * {
-    outline: 1px solid lightcoral;
-  }
 
 `;
 

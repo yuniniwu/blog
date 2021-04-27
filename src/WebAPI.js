@@ -2,9 +2,15 @@ import { getAuthToken } from './utils';
 
 const BASE_URL = 'https://student-json-api.lidemy.me';
 
-export const getPost = (limit) => {
+export const getPost = () => {
+  return fetch(`${BASE_URL}/posts?_sort=createdAt&_order=desc`).then((res) =>
+    res.json()
+  );
+};
+
+export const getPostByRange = (offset, limit) => {
   return fetch(
-    `${BASE_URL}/posts?_sort=createdAt&_order=desc&_limit=${limit}`
+    `${BASE_URL}/posts?_sort=createdAt&_order=desc&_start=${offset}&_limit=${limit}`
   ).then((res) => res.json());
 };
 

@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState, useCallback, useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { getPost } from '../../WebAPI';
+import { getPost, getPostByRange } from '../../WebAPI';
 
 const Container = styled.div`
   max-width: 960px;
@@ -16,6 +16,7 @@ const PostContainer = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
+  border-bottom: 1px solid #555;
 `;
 
 const PostTitle = styled(Link)`
@@ -42,53 +43,131 @@ Post.propTypes = {
 };
 
 const PaginationWrap = styled.div`
-  /* width: 50%; */
-  /* margin: 0 auto; */
   text-align: center;
   padding: 1rem 0;
   font-size: 1.2rem;
+
+  p {
+    margin-top: 1rem;
+  }
+
+  * {
+    outline: 1px solid red;
+  }
 `;
 
-const Paginationlist = styled.a`
-  display: inline-block;
-  padding: 0.2rem;
+const PaginationList = styled.a`
+  padding: 0 1rem;
+  cursor: pointer;
+
+  ${(prop) =>
+    prop.$active &&
+    `
+      background: rgba(0,0,0,0.15)
+    `}
 `;
 
-function Pagination({ length, limit }) {
-  const [page, setPage] = useState([]);
+function Button({ onClick, children }) {
+  return <button onClick={onClick}>{children}</button>;
+}
 
-  useEffect(() => {
-    setPage(Math.ceil(length / limit));
-  }, [length, limit]);
-
+function Pagination({
+  pageArray,
+  handlePageChanged,
+  currentPage,
+  handleCurrentPosts,
+}) {
   return (
     <PaginationWrap>
-      <button>上一頁</button>
-      <Paginationlist>1</Paginationlist>
-      <Paginationlist>2</Paginationlist>
-      <Paginationlist>3</Paginationlist>
-      <button>下一頁</button>
-      <p>總共有 {page} 頁</p>
+      <Button onClick={handlePageChanged}>上一頁</Button>
+      {pageArray.map((item) => {
+        return (
+          <PaginationList
+            key={item}
+            $active={currentPage === item}
+            onClick={handleCurrentPosts}
+          >
+            {item}
+          </PaginationList>
+        );
+      })}
+      <Button onClick={handlePageChanged}>下一頁</Button>
+      <p>總共有 {pageArray.length} 頁</p>
+      <p>現在在第 {currentPage} 頁</p>
     </PaginationWrap>
   );
 }
 
 export default function HomePage() {
   const [posts, setPosts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPosts, setCurrentPosts] = useState(posts);
   const limit = 5;
 
-  // if (posts.length > limit)
-
-  useEffect(() => {
-    getPost(limit).then((posts) => setPosts(posts));
+  useLayoutEffect(() => {
+    // get posts - all
+    getPost().then((posts) => setPosts(posts));
+    // get posts - only 1st page
+    getPostByRange(0, limit).then((posts) => {
+      setCurrentPosts(posts);
+    });
   }, []);
+
+  const totalPage = Math.ceil(posts.length / limit);
+
+  // for pagination
+  const pageArray = [];
+  for (let i = 1; i <= totalPage; i++) {
+    pageArray.push(i);
+  }
+
+  const handleLastPage = useCallback(() => {
+    setCurrentPage((currentPage) => currentPage - 1);
+  }, []);
+
+  const handleNextPage = useCallback(() => {
+    setCurrentPage((currentPage) => currentPage + 1);
+  }, []);
+
+  const handlePartialPosts = useCallback(() => {
+    getPostByRange((currentPage - 1) * limit, limit).then((posts) =>
+      setCurrentPosts(posts)
+    );
+  }, [currentPage]);
+
+  const handlePageChanged = (e) => {
+    const target = e.target.innerText;
+
+    if (target === '上一頁') {
+      if (currentPage <= 1) return;
+      handleLastPage();
+      handlePartialPosts();
+    }
+
+    if (target === '下一頁') {
+      if (currentPage >= totalPage) return;
+      handleNextPage();
+      handlePartialPosts();
+    }
+  };
+
+  const handleCurrentPosts = (e) => {
+    const clickedPage = Number(e.target.innerText);
+    setCurrentPage(clickedPage);
+    handlePartialPosts();
+  };
 
   return (
     <Container>
-      {posts.map((post) => (
+      {currentPosts.map((post) => (
         <Post key={post.id} post={post} />
       ))}
-      <Pagination length={posts.length} limit={limit} />
+      <Pagination
+        pageArray={pageArray}
+        handlePageChanged={handlePageChanged}
+        currentPage={currentPage}
+        handleCurrentPosts={handleCurrentPosts}
+      />
     </Container>
   );
 }
