@@ -84,3 +84,13 @@ export const editPost = (id, title, body) => {
     }),
   }).then((res) => res.json());
 };
+
+export const deletePost = (id) => {
+  const token = getAuthToken();
+  return fetch(`${BASE_URL}/posts/${id}`, {
+    method: 'DELETE',
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  }).then((res) => res.json());
+};

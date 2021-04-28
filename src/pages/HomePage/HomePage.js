@@ -1,4 +1,10 @@
-import { useState, useCallback, useLayoutEffect } from 'react';
+import {
+  useState,
+  useCallback,
+  useLayoutEffect,
+  useRef,
+  useEffect,
+} from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -51,8 +57,9 @@ const PaginationWrap = styled.div`
     margin-top: 1rem;
   }
 
-  * {
-    outline: 1px solid red;
+  button {
+    font-size: 1.2rem;
+    margin: 0 1rem;
   }
 `;
 
@@ -93,7 +100,6 @@ function Pagination({
       })}
       <Button onClick={handlePageChanged}>下一頁</Button>
       <p>總共有 {pageArray.length} 頁</p>
-      <p>現在在第 {currentPage} 頁</p>
     </PaginationWrap>
   );
 }
@@ -121,15 +127,7 @@ export default function HomePage() {
     pageArray.push(i);
   }
 
-  const handleLastPage = useCallback(() => {
-    setCurrentPage((currentPage) => currentPage - 1);
-  }, []);
-
-  const handleNextPage = useCallback(() => {
-    setCurrentPage((currentPage) => currentPage + 1);
-  }, []);
-
-  const handlePartialPosts = useCallback(() => {
+  useEffect(() => {
     getPostByRange((currentPage - 1) * limit, limit).then((posts) =>
       setCurrentPosts(posts)
     );
@@ -140,25 +138,27 @@ export default function HomePage() {
 
     if (target === '上一頁') {
       if (currentPage <= 1) return;
-      handleLastPage();
-      handlePartialPosts();
+      setCurrentPage((currentPage) => currentPage - 1);
     }
 
     if (target === '下一頁') {
       if (currentPage >= totalPage) return;
-      handleNextPage();
-      handlePartialPosts();
+      setCurrentPage((currentPage) => currentPage + 1);
     }
   };
 
   const handleCurrentPosts = (e) => {
     const clickedPage = Number(e.target.innerText);
-    setCurrentPage(clickedPage);
-    handlePartialPosts();
+    setCurrentPage((current) => (current = clickedPage));
   };
+
+  // 交作業前要刪掉
+  const refCount = useRef(0);
 
   return (
     <Container>
+      {/*  交作業前要刪掉 */}
+      {console.log('renderCount', refCount.current++)}
       {currentPosts.map((post) => (
         <Post key={post.id} post={post} />
       ))}

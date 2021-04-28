@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect, useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import { useHistory, useParams } from 'react-router-dom';
 import { getArticle, editPost } from '../../WebAPI';
@@ -72,11 +72,11 @@ export default function EditPage() {
   // disabled submit button or not
   const [isDisabled, setIsDisabled] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     getArticle(articleId).then((data) => {
       setArticle(data);
     });
-  }, []);
+  }, [articleId]);
 
   useEffect(() => {
     setTitle(article.title);
