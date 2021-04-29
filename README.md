@@ -7,7 +7,7 @@
 - 登入頁面：輸入帳號密碼後可以登入
   - 帳號：user01
   - 密碼：Lidemy
-  - 
+  
   <img width="600" alt="登入頁面DEMO" src="https://user-images.githubusercontent.com/20063249/116515358-c24e4100-a8fe-11eb-8b80-1c286ec0af1e.png">
 
 - 註冊頁面：可以開放使用者註冊（使用練習用API，註冊後密碼會強制轉為 Lidemy）
