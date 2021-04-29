@@ -75,7 +75,6 @@ export default function Header() {
         <Brand>我的第一個Blog</Brand>
         <NavList>
           <NavItem to='/' $active={location.pathname === '/'} children='首頁' />
-
           {user && (
             <>
               <NavItem
@@ -90,6 +89,11 @@ export default function Header() {
               />
             </>
           )}
+          <NavItem
+            to='/message'
+            $active={location.pathname === '/message'}
+            children='訪客留言板'
+          />
         </NavList>
       </LeftContainer>
       <NavList>

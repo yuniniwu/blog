@@ -10,6 +10,7 @@ import AboutPage from '../../pages/AboutPage';
 import NewPostPage from '../../pages/NewPostPage';
 import EditPage from '../../pages/EditPage';
 import Header from '../Header';
+import MessageBoard from '../MessageBoard';
 import { AuthContext } from '../../context.js';
 import { getMe } from '../../WebAPI';
 import { getAuthToken } from '../../utils';
@@ -43,6 +44,9 @@ export default function App() {
 
             {/* router */}
             <Switch>
+              <Route path='/message'>
+                <MessageBoard />
+              </Route>
               <Route path='/about'>
                 <AboutPage />
               </Route>
