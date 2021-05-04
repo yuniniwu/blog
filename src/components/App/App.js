@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import GlobalStyle from '../../constants/style.js';
-import { HashRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import HomePage from '../../pages/HomePage';
 import LoginPage from '../../pages/LoginPage';
@@ -36,7 +36,7 @@ export default function App() {
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
-      <Router>
+      <Router basename='/blog'>
         <>
           <GlobalStyle />
           <Container>
