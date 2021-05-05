@@ -1,5 +1,5 @@
 ## 部落格
-[DEMO](https://yuniniwu.github.io/blog/#/) 練習使用 React Router 實作 SPA
+[DEMO](https://yuniniwu.github.io/blog/) 練習使用 React Router 實作 SPA
   - 帳號：user01
   - 密碼：Lidemy
 
@@ -30,6 +30,6 @@
 
 ## 留言板 串接API
 
-[DEMO](https://yuniniwu.github.io/blog/#/message)
+[DEMO](https://yuniniwu.github.io/blog/message)
 
 <img width="240" alt="留言板截圖" src="https://user-images.githubusercontent.com/20063249/115719113-5de72b00-a3ae-11eb-8f21-b9357254dc4d.png">
