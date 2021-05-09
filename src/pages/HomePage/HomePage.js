@@ -1,8 +1,9 @@
-import { useState, useCallback, useLayoutEffect, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { getPost, getPostByRange } from '../../WebAPI';
+import { getPostByRange } from '../../WebAPI';
+import Pagination from '../../components/Pagination';
 
 const Container = styled.div`
   max-width: 960px;
@@ -42,89 +43,28 @@ Post.propTypes = {
   post: PropTypes.object,
 };
 
-const PaginationWrap = styled.div`
-  text-align: center;
-  padding: 1rem 0;
-  font-size: 1.2rem;
-
-  p {
-    margin-top: 1rem;
-  }
-
-  button {
-    font-size: 1.2rem;
-    margin: 0 1rem;
-  }
-`;
-
-const PaginationList = styled.a`
-  padding: 0 1rem;
-  cursor: pointer;
-
-  ${(prop) =>
-    prop.$active &&
-    `
-      background: rgba(0,0,0,0.15)
-    `}
-`;
-
-function Button({ onClick, children }) {
-  return <button onClick={onClick}>{children}</button>;
-}
-
-function Pagination({
-  pageArray,
-  handlePageChanged,
-  currentPage,
-  handleCurrentPosts,
-}) {
-  return (
-    <PaginationWrap>
-      <Button onClick={handlePageChanged}>上一頁</Button>
-      {pageArray.map((item) => {
-        return (
-          <PaginationList
-            key={item}
-            $active={currentPage === item}
-            onClick={handleCurrentPosts}
-          >
-            {item}
-          </PaginationList>
-        );
-      })}
-      <Button onClick={handlePageChanged}>下一頁</Button>
-    </PaginationWrap>
-  );
-}
-
 export default function HomePage() {
-  const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentPosts, setCurrentPosts] = useState(posts);
+  const [currentPosts, setCurrentPosts] = useState([]);
   const limit = 5;
 
-  useLayoutEffect(() => {
-    // get posts - all
-    getPost().then((posts) => setPosts(posts));
-    // get posts - only 1st page
-    getPostByRange(0, limit).then((posts) => {
-      setCurrentPosts(posts);
-    });
-  }, []);
+  const totalPost = useRef(null);
 
-  const totalPage = Math.ceil(posts.length / limit);
+  useEffect(() => {
+    getPostByRange((currentPage - 1) * limit, limit).then((res) => {
+      // 從 response header 拿到 posts 總筆數
+      totalPost.current = res.headers.get('x-total-count');
+      res.json().then((posts) => setCurrentPosts(posts));
+    });
+  }, [currentPage]);
+
+  const totalPage = Math.ceil(totalPost.current / limit);
 
   // for pagination
   const pageArray = [];
   for (let i = 1; i <= totalPage; i++) {
     pageArray.push(i);
   }
-
-  useEffect(() => {
-    getPostByRange((currentPage - 1) * limit, limit).then((posts) =>
-      setCurrentPosts(posts)
-    );
-  }, [currentPage]);
 
   const handlePageChanged = useCallback(
     (e) => {

@@ -13,7 +13,8 @@ const Wrapper = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  border-bottom: 1px solid black;
+
+  box-shadow: 0px 4px 8px #555;
   padding: 0 2rem;
   font-size: 1.2rem;
   box-sizing: border-box;
@@ -72,7 +73,7 @@ export default function Header() {
   return (
     <Wrapper>
       <LeftContainer>
-        <Brand>我的第一個Blog</Brand>
+        <Brand>My Blog</Brand>
         <NavList>
           <NavItem to='/' $active={location.pathname === '/'} children='首頁' />
           {user && (

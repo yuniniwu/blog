@@ -11,7 +11,7 @@ export const getPost = () => {
 export const getPostByRange = (offset, limit) => {
   return fetch(
     `${BASE_URL}/posts?_sort=createdAt&_order=desc&_start=${offset}&_limit=${limit}`
-  ).then((res) => res.json());
+  ).then();
 };
 
 export const getArticle = (postId) => {
@@ -25,8 +25,8 @@ export const login = (username, password) => {
       'content-type': 'application/json',
     },
     body: JSON.stringify({
-      username: username,
-      password: password,
+      username,
+      password,
     }),
   }).then((res) => res.json());
 };
@@ -47,9 +47,9 @@ export const register = (username, password, nickname) => {
       'content-type': 'application/json',
     },
     body: JSON.stringify({
-      nickname: nickname,
-      username: username,
-      password: password,
+      nickname,
+      username,
+      password,
     }),
   }).then((res) => res.json());
 };
