@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getPostByRange } from '../../WebAPI';
 import Pagination from '../../components/Pagination';
+import Post from '../../components/Post';
 
 const Container = styled.div`
   max-width: 960px;
@@ -11,37 +12,6 @@ const Container = styled.div`
   padding: 30px;
   font-size: 1rem;
 `;
-
-const PostContainer = styled.div`
-  padding: 16px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  border-bottom: 1px solid #555;
-`;
-
-const PostTitle = styled(Link)`
-  font-size: 1.5rem;
-  text-decoration: none;
-  color: black;
-`;
-
-const PostTime = styled.div`
-  color: rgba(0, 0, 0, 0.5);
-`;
-
-function Post({ post }) {
-  return (
-    <PostContainer>
-      <PostTitle to={`/posts/${post.id}`}>{post.title}</PostTitle>
-      <PostTime>{new Date(post.createdAt).toLocaleString()}</PostTime>
-    </PostContainer>
-  );
-}
-
-Post.propTypes = {
-  post: PropTypes.object,
-};
 
 export default function HomePage() {
   const [currentPage, setCurrentPage] = useState(1);

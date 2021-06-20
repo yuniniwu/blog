@@ -10,6 +10,7 @@ import AboutPage from '../../pages/AboutPage';
 import NewPostPage from '../../pages/NewPostPage';
 import EditPage from '../../pages/EditPage';
 import Header from '../Header';
+import Footer from '../Footer';
 import MessageBoard from '../MessageBoard';
 import { AuthContext } from '../../context.js';
 import { getMe } from '../../WebAPI';
@@ -41,7 +42,6 @@ export default function App() {
           <GlobalStyle />
           <Container>
             <Header />
-
             {/* router */}
             <Switch>
               <Route path='/message'>
@@ -69,6 +69,7 @@ export default function App() {
                 <HomePage />
               </Route>
             </Switch>
+            <Footer />
           </Container>
         </>
       </Router>

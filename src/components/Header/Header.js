@@ -28,7 +28,8 @@ const LeftContainer = styled.div`
   align-items: center;
 `;
 
-const Brand = styled.h1`
+const Brand = styled(Link)`
+  text-decoration: none;
   font-weight: bold;
   font-size: 2rem;
   margin-right: 1rem;
@@ -49,6 +50,10 @@ const NavItem = styled(Link)`
   cursor: pointer;
   color: black;
   text-decoration: none;
+
+  &:hover {
+    background-color: blue;
+  }
 
   ${(props) =>
     props.$active &&
@@ -73,27 +78,33 @@ export default function Header() {
   return (
     <Wrapper>
       <LeftContainer>
-        <Brand>My Blog</Brand>
+        <Brand to='/' $active={location.pathname === '/'}>
+          My Blog
+        </Brand>
         <NavList>
-          <NavItem to='/' $active={location.pathname === '/'} children='首頁' />
+          <NavItem
+            to='/'
+            $active={location.pathname === '/'}
+            children='Posts'
+          />
           {user && (
             <>
               <NavItem
                 to='/new-post'
                 $active={location.pathname === '/new-post'}
-                children='發布文章'
+                children='New Post'
               />
               <NavItem
                 to='/about'
                 $active={location.pathname === '/about'}
-                children='關於我'
+                children='About'
               />
             </>
           )}
           <NavItem
             to='/message'
             $active={location.pathname === '/message'}
-            children='訪客留言板'
+            children='Message Board'
           />
         </NavList>
       </LeftContainer>
@@ -101,14 +112,14 @@ export default function Header() {
         {!user && (
           <>
             <NavItem to='/login' $active={location.pathname === '/login'}>
-              登入
+              Login
             </NavItem>
             <NavItem to='/register' $active={location.pathname === '/register'}>
-              註冊
+              Register
             </NavItem>
           </>
         )}
-        {user && <NavItem onClick={handleLogout}>登出</NavItem>}
+        {user && <NavItem onClick={handleLogout}>Logout</NavItem>}
       </NavList>
     </Wrapper>
   );
