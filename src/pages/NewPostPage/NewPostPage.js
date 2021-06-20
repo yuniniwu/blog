@@ -73,13 +73,18 @@ export default function NewPostPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (!title || !body) {
+      return setErrMessage('標題或內文不得為空');
+    }
     newPost(title, body).then((data) => {
-      if (data.ok === 0) {
+      if (!data.ok) {
+        history.push('/');
+        alert('新增文章成功');
+      } else {
         setIsDisabled(true);
+        alert('新增文章失敗');
         return setErrMessage(data.message);
       }
-      history.push('/');
-      alert('新增文章成功');
     });
 
     setTitle('');

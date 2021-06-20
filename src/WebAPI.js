@@ -57,14 +57,14 @@ export const register = (username, password, nickname) => {
 export const newPost = (title, body) => {
   const token = getAuthToken();
   return fetch(`${BASE_URL}/posts`, {
-    method: 'PUT',
+    method: 'POST',
     headers: {
       'content-type': 'application/json',
       authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
-      title: title,
-      body: body,
+      title,
+      body,
     }),
   }).then((res) => res.json());
 };
@@ -78,8 +78,8 @@ export const editPost = (id, title, body) => {
       authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
-      title: title,
-      body: body,
+      title,
+      body,
       createdAt: new Date().valueOf(),
     }),
   }).then((res) => res.json());
