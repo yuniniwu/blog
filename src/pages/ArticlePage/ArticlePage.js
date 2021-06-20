@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { getArticle } from '../../WebAPI';
-import { useEffect, useState, useContext } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { getArticle, deletePost } from '../../WebAPI';
+import { useEffect, useState, useContext, useCallback } from 'react';
+import { useParams, Link, useHistory } from 'react-router-dom';
 import { AuthContext } from '../../context.js';
 
 const Container = styled.div`
@@ -54,9 +54,12 @@ const EditArticleButton = styled(Link)`
   }
 `;
 
+const DeleteArticleButton = styled(EditArticleButton)``;
+
 function Article({ articleId, user }) {
   const [article, setArticle] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     getArticle(articleId).then((data) => setArticle(data));
@@ -66,10 +69,19 @@ function Article({ articleId, user }) {
     user && user.id === article.userId && setIsEdit(true);
   }, [user, article.userId]);
 
+  const handleArticleDelete = useCallback(() => {
+    deletePost(articleId).then(() => {
+      history.pushState('/blog');
+    });
+  }, [articleId, history]);
+
   return (
     <ArticleContainer>
       {isEdit && (
-        <EditArticleButton to={`/edit-page/${articleId}`} children='編輯文章' />
+        <>
+          <EditArticleButton to={`/edit-page/${articleId}`} children='編輯' />
+          <DeleteArticleButton onClick={handleArticleDelete} children='刪除' />
+        </>
       )}
       <Title>{article.title}</Title>
       <ArticleInfo>
