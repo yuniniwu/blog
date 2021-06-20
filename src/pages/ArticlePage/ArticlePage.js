@@ -69,18 +69,20 @@ function Article({ articleId, user }) {
     user && user.id === article.userId && setIsEdit(true);
   }, [user, article.userId]);
 
-  const handleArticleDelete = useCallback(() => {
-    deletePost(articleId).then(() => {
-      history.pushState('/blog');
-    });
-  }, [articleId, history]);
+  const handleArticleDelete = () => {
+    deletePost(articleId).then(alert('刪除成功'));
+  };
 
   return (
     <ArticleContainer>
       {isEdit && (
         <>
           <EditArticleButton to={`/edit-page/${articleId}`} children='編輯' />
-          <DeleteArticleButton onClick={handleArticleDelete} children='刪除' />
+          <DeleteArticleButton
+            to={`/`}
+            onClick={handleArticleDelete}
+            children='刪除'
+          />
         </>
       )}
       <Title>{article.title}</Title>
