@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getPostByRange } from '../../WebAPI';
 import Pagination from '../../components/Pagination';
-import Post from '../../components/Post';
+import PostItem from '../../components/PostItem';
 
 const Container = styled.div`
   max-width: 960px;
@@ -61,7 +61,7 @@ export default function HomePage() {
   return (
     <Container>
       {currentPosts.map((post) => (
-        <Post key={post.id} post={post} />
+        <PostItem key={post.id} post={post} />
       ))}
       <Pagination
         pageArray={pageArray}

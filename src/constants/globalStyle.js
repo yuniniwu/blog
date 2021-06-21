@@ -134,11 +134,12 @@ const GlobalStyle = createGlobalStyle`
   
   /* below is not part of css reset */
   body {
-    background-color: #FFF;
+    background: ${({ theme }) => theme.colors.body};
+    color: ${({ theme }) => theme.colors.text};
+    font-family: ${({ theme }) => theme.font};
+    transition: all 0.50s linear;
   }
-
+}
 `;
 
 export default GlobalStyle;
-
-export const MEDIA_QUERY_MD = '@media screen and (max-width: 768px)';

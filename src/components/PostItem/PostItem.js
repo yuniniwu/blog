@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { getAuthorArticles } from '../../WebAPI';
+import { useEffect, useState } from 'react';
 
 const PostContainer = styled.div`
   background-color: lightgray;
@@ -34,8 +36,12 @@ const PostTime = styled.div`
   color: rgba(0, 0, 0, 0.5);
 `;
 
-const Author = styled.div`
-  margin-bottom: 10px;
+const Author = styled(Link)`
+  text-decoration: none;
+  color: black;
+  &:hover {
+    border-bottom: 2px solid lightcoral;
+  }
 `;
 
 const PostPreview = styled.p`
@@ -58,7 +64,15 @@ const ReadMore = styled(Link)`
   }
 `;
 
-export default function Post({ post }) {
+export default function PostItem({ post }) {
+  const [author, setAuthor] = useState('');
+  // TODO: 效能？
+  useEffect(() => {
+    getAuthorArticles(post.userId).then((data) =>
+      setAuthor(data[0].user.nickname)
+    );
+  }, [post.userId]);
+
   return (
     <PostContainer>
       <LeftWrapper>
@@ -67,13 +81,13 @@ export default function Post({ post }) {
         <ReadMore to={`/posts/${post.id}`}>Read More</ReadMore>
       </LeftWrapper>
       <RightWrapper>
-        <Author>author</Author>
+        <Author to={`/author/${post.userId}`}>{author}</Author>
         <PostTime>{new Date(post.createdAt).toLocaleDateString()}</PostTime>
       </RightWrapper>
     </PostContainer>
   );
 }
 
-Post.propTypes = {
+PostItem.propTypes = {
   post: PropTypes.object,
 };

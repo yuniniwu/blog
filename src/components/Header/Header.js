@@ -119,7 +119,11 @@ export default function Header() {
             </NavItem>
           </>
         )}
-        {user && <NavItem onClick={handleLogout}>Logout</NavItem>}
+        {user && (
+          <NavItem to='/' onClick={handleLogout}>
+            Logout
+          </NavItem>
+        )}
       </NavList>
     </Wrapper>
   );

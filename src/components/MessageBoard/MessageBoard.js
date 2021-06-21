@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import GlobalStyle from '../../constants/style.js';
+import GlobalStyle from '../../constants/globalStyle.js';
 import PropTypes from 'prop-types';
 
 const API_ENDPOINT = 'https://student-json-api.lidemy.me/comments';

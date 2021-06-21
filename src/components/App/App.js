@@ -1,20 +1,26 @@
-import styled from 'styled-components';
-import GlobalStyle from '../../constants/style.js';
+import styled, { ThemeProvider } from 'styled-components';
+import GlobalStyle from '../../constants/globalStyle.js';
+import * as themes from '../../constants/theme/schema.json';
+import { useTheme } from '../../constants/theme/useTheme';
+import WebFont from 'webfontloader';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import HomePage from '../../pages/HomePage';
-import LoginPage from '../../pages/LoginPage';
-import RegisterPage from '../../pages/RegisterPage';
-import ArticlePage from '../../pages/ArticlePage';
-import AboutPage from '../../pages/AboutPage';
-import NewPostPage from '../../pages/NewPostPage';
-import EditPage from '../../pages/EditPage';
 import Header from '../Header';
 import Footer from '../Footer';
 import MessageBoard from '../MessageBoard';
 import { AuthContext } from '../../context.js';
 import { getMe } from '../../WebAPI';
-import { getAuthToken } from '../../utils';
+import { getAuthToken, setThemeToLS, getThemes } from '../../utils';
+import {
+  HomePage,
+  LoginPage,
+  RegisterPage,
+  ArticlePage,
+  AboutPage,
+  NewPostPage,
+  EditPage,
+  AuthorArticlesPage,
+} from '../../pages';
 
 const Container = styled.div`
   max-width: 960px;
@@ -25,6 +31,22 @@ const Container = styled.div`
 
 export default function App() {
   const [user, setUser] = useState(null);
+  const { theme, themeLoaded, getFonts } = useTheme();
+  const [selectedTheme, setSelectedTheme] = useState(theme);
+
+  setThemeToLS(themes.default);
+
+  useEffect(() => {
+    setSelectedTheme(theme);
+  }, [themeLoaded]);
+
+  useEffect(() => {
+    WebFont.load({
+      google: {
+        families: getFonts(),
+      },
+    });
+  });
 
   useEffect(() => {
     if (getAuthToken())
@@ -36,43 +58,50 @@ export default function App() {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
-      <Router basename='/blog'>
-        <>
-          <GlobalStyle />
-          <Container>
-            <Header />
-            {/* router */}
-            <Switch>
-              <Route path='/message'>
-                <MessageBoard />
-              </Route>
-              <Route path='/about'>
-                <AboutPage />
-              </Route>
-              <Route path='/login'>
-                <LoginPage />
-              </Route>
-              <Route path='/register'>
-                <RegisterPage />
-              </Route>
-              <Route path='/posts/:articleId'>
-                <ArticlePage />
-              </Route>
-              <Route path='/new-post'>
-                <NewPostPage />
-              </Route>
-              <Route path='/edit-page/:articleId'>
-                <EditPage />
-              </Route>
-              <Route exact path='/'>
-                <HomePage />
-              </Route>
-            </Switch>
-            <Footer />
-          </Container>
-        </>
-      </Router>
-    </AuthContext.Provider>
+    themeLoaded && (
+      <AuthContext.Provider value={{ user, setUser }}>
+        <ThemeProvider theme={selectedTheme}>
+          <Router basename='/blog'>
+            <>
+              <GlobalStyle />
+              <Container style={{ fontFamily: selectedTheme.font }}>
+                <Header />
+                {/* router */}
+                <Switch>
+                  <Route path='/author/:userId'>
+                    <AuthorArticlesPage />
+                  </Route>
+                  <Route path='/message'>
+                    <MessageBoard />
+                  </Route>
+                  <Route path='/about'>
+                    <AboutPage />
+                  </Route>
+                  <Route path='/login'>
+                    <LoginPage />
+                  </Route>
+                  <Route path='/register'>
+                    <RegisterPage />
+                  </Route>
+                  <Route path='/posts/:articleId'>
+                    <ArticlePage />
+                  </Route>
+                  <Route path='/new-post'>
+                    <NewPostPage />
+                  </Route>
+                  <Route path='/edit-page/:articleId'>
+                    <EditPage />
+                  </Route>
+                  <Route exact path='/'>
+                    <HomePage />
+                  </Route>
+                </Switch>
+                <Footer />
+              </Container>
+            </>
+          </Router>
+        </ThemeProvider>
+      </AuthContext.Provider>
+    )
   );
 }

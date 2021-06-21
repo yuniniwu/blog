@@ -94,3 +94,9 @@ export const deletePost = (id) => {
     },
   }).then((res) => res.json());
 };
+
+export const getAuthorArticles = (id) => {
+  return fetch(`${BASE_URL}/posts?userId=${id}&_expand=user`).then((res) =>
+    res.json()
+  );
+};

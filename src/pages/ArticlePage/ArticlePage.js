@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { getArticle, deletePost } from '../../WebAPI';
-import { useEffect, useState, useContext, useCallback } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useParams, Link, useHistory } from 'react-router-dom';
 import { AuthContext } from '../../context.js';
 
@@ -59,7 +59,6 @@ const DeleteArticleButton = styled(EditArticleButton)``;
 function Article({ articleId, user }) {
   const [article, setArticle] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
-  const history = useHistory();
 
   useEffect(() => {
     getArticle(articleId).then((data) => setArticle(data));
