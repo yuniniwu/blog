@@ -3,8 +3,8 @@ import { setThemeToLS, getThemes } from '../../utils';
 import _ from 'lodash';
 
 export const useTheme = () => {
-  const themes = getThemes('theme');
-  const [theme, setTheme] = useState(themes.data.light);
+  // const localTheme = getThemes('theme');
+  const [theme, setTheme] = useState('light');
   const [themeLoaded, setThemeLoaded] = useState(false);
 
   const setMode = (mode) => {
@@ -12,16 +12,19 @@ export const useTheme = () => {
     setTheme(mode);
   };
 
-  const getFonts = () => {
-    const allFonts = _.values(_.mapValues(themes.data, 'font'));
+  const getFonts = (themeData) => {
+    const allFonts = _.values(_.mapValues(themeData, 'font'));
     return allFonts;
   };
 
+  const themeSwitch = () => {
+    theme === 'light' ? setMode('dark') : setMode('light');
+  };
+
   useEffect(() => {
-    const localTheme = getThemes('theme');
-    localTheme ? setTheme(localTheme) : setTheme(themes.data.light);
+    getThemes() && setTheme(getThemes());
     setThemeLoaded(true);
   }, []);
 
-  return { theme, themeLoaded, setMode, getFonts };
+  return { theme, themeLoaded, themeSwitch, getFonts };
 };

@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
-const GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle`
 /*
   CSS reset 
   http://meyerweb.com/eric/tools/css/reset/ 
@@ -136,10 +136,30 @@ const GlobalStyle = createGlobalStyle`
   body {
     background: ${({ theme }) => theme.colors.body};
     color: ${({ theme }) => theme.colors.text};
-    font-family: ${({ theme }) => theme.font};
+    font-family: 'Helvetica', Open-Sans, Arial;
     transition: all 0.50s linear;
   }
-}
-`;
 
-export default GlobalStyle;
+  a {
+    color: ${({ theme }) => theme.colors.link.text};
+    cursor: pointer;
+  }
+
+  button {
+    border: 0;
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 14px;
+    border-radius: 4px;
+    margin-top: 5px;
+    cursor: pointer;
+    background-color: #1064EA;
+    color: #FFFFFF;
+    font-family: 'Helvetica', Open-Sans, Arial;
+  }
+
+  button.btn {
+    background-color: ${({ theme }) => theme.colors.button.background};
+    color: ${({ theme }) => theme.colors.button.text};
+  }
+`;

@@ -1,5 +1,5 @@
 import styled, { ThemeProvider } from 'styled-components';
-import GlobalStyle from '../../constants/globalStyle.js';
+import { GlobalStyle } from '../../constants/globalStyle.js';
 import * as themes from '../../constants/theme/schema.json';
 import { useTheme } from '../../constants/theme/useTheme';
 import WebFont from 'webfontloader';
@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 import Header from '../Header';
 import Footer from '../Footer';
 import MessageBoard from '../MessageBoard';
-import { AuthContext } from '../../context.js';
+import { AuthContext, ThemeContext } from '../../context.js';
 import { getMe } from '../../WebAPI';
 import { getAuthToken, setThemeToLS, getThemes } from '../../utils';
 import {
@@ -31,40 +31,36 @@ const Container = styled.div`
 
 export default function App() {
   const [user, setUser] = useState(null);
-  const { theme, themeLoaded, getFonts } = useTheme();
-  const [selectedTheme, setSelectedTheme] = useState(theme);
+  const { theme, themeLoaded, themeSwitch, getFonts } = useTheme();
+  const themeMode = theme === 'light' ? themes.data.light : themes.data.dark;
 
-  setThemeToLS(themes.default);
+  // setThemeToLS(themes.default);
+  // useEffect(() => {
+  //   WebFont.load({
+  //     google: {
+  //       families: getFonts(themeMode),
+  //     },
+  //   });
+  // }, []);
 
   useEffect(() => {
-    setSelectedTheme(theme);
-  }, [themeLoaded]);
+    if (!getAuthToken()) return;
 
-  useEffect(() => {
-    WebFont.load({
-      google: {
-        families: getFonts(),
-      },
+    getMe().then((res) => {
+      if (res.ok) {
+        setUser(res.data);
+      }
     });
-  });
-
-  useEffect(() => {
-    if (getAuthToken())
-      getMe().then((res) => {
-        if (res.ok) {
-          setUser(res.data);
-        }
-      });
   }, []);
 
   return (
     themeLoaded && (
       <AuthContext.Provider value={{ user, setUser }}>
-        <ThemeProvider theme={selectedTheme}>
+        <ThemeProvider theme={themeMode}>
           <Router basename='/blog'>
             <>
               <GlobalStyle />
-              <Container style={{ fontFamily: selectedTheme.font }}>
+              <Container style={{ fontFamily: themeMode.font }}>
                 <Header />
                 {/* router */}
                 <Switch>

@@ -4,7 +4,7 @@
       "id": "T_001",
       "name": "Light",
       "colors": {
-        "body": "#FFFFFF",
+        "body": "#eeede7",
         "text": "#000000",
         "button": {
           "text": "#FFFFFF",
@@ -17,9 +17,9 @@
       },
       "font": "Tinos"
     },
-    "seaWave" : {
+    "dark" : {
       "id": "T_007",
-      "name": "Sea Wave",
+      "name": "dark",
       "colors": {
         "body": "#9be7ff",
         "text": "#0d47a1",

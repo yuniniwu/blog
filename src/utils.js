@@ -10,12 +10,11 @@ export const getAuthToken = () => {
 };
 
 export const setThemeToLS = (value) => {
-  window.localStorage.setItem(THEME, JSON.stringify(value));
+  localStorage.setItem(THEME, JSON.stringify(value));
 };
 
-export const getThemes = (key) => {
-  const value = window.localStorage.getItem(key);
-
+export const getThemes = () => {
+  const value = localStorage.getItem(THEME);
   if (value) {
     return JSON.parse(value);
   }
