@@ -5,13 +5,7 @@ import { Link } from 'react-router-dom';
 import { getPostByRange } from '../../WebAPI';
 import Pagination from '../../components/Pagination';
 import PostItem from '../../components/PostItem';
-
-const Container = styled.div`
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 30px;
-  font-size: 1rem;
-`;
+import { Container } from '../../style/commonLayout';
 
 export default function HomePage() {
   const [currentPage, setCurrentPage] = useState(1);

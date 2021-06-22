@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.footer`
-  outline: 1px solid red;
   padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
 `;
+
 const Text = styled.p``;
 
 const MyLink = styled.a`

@@ -4,13 +4,7 @@ import { getArticle, deletePost } from '../../WebAPI';
 import { useEffect, useState, useContext } from 'react';
 import { useParams, Link, useHistory } from 'react-router-dom';
 import { AuthContext } from '../../context.js';
-
-const Container = styled.div`
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 30px;
-  font-size: 1rem;
-`;
+import { Container } from '../../style/commonLayout';
 
 const ArticleContainer = styled.div`
   padding: 16px;

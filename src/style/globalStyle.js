@@ -1,11 +1,17 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
+  ${
+    '' /* * {
+    outline: 1px solid 
+  } */
+  }
   body {
     background: ${({ theme }) => theme.colors.body};
     color: ${({ theme }) => theme.colors.text};
     font-family: 'Helvetica', Open-Sans, Arial;
     transition: all 0.50s linear;
+    font-size: 1rem;
   }
 
   a {
@@ -21,8 +27,8 @@ export const GlobalStyle = createGlobalStyle`
     border-radius: 4px;
     margin-top: 5px;
     cursor: pointer;
-    background-color: #1064EA;
-    color: #FFFFFF;
+    background-color: ${({ theme }) => theme.colors.button.background};
+    color: ${({ theme }) => theme.colors.button.text};
     font-family: 'Helvetica', Open-Sans, Arial;
   }
 

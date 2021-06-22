@@ -1,8 +1,9 @@
 import styled, { ThemeProvider } from 'styled-components';
-import { GlobalStyle } from '../../constants/globalStyle.js';
+import { GlobalStyle } from '../../style/globalStyle.js';
 import { Reset } from 'styled-reset';
-import * as themes from '../../constants/theme/schema.json';
-import { useTheme } from '../../constants/theme/useTheme';
+import * as themes from '../../style/theme/schema.json';
+import { useTheme } from '../../style/theme/useTheme';
+import { Container } from '../../style/commonLayout';
 import WebFont from 'webfontloader';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
@@ -22,13 +23,6 @@ import {
   EditPage,
   AuthorArticlesPage,
 } from '../../pages';
-
-const Container = styled.div`
-  max-width: 960px;
-  margin: 0 auto;
-  padding-top: 64px;
-  font-size: 1rem;
-`;
 
 export default function App() {
   const [user, setUser] = useState(null);

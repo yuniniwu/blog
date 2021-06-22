@@ -1,71 +1,94 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { Link, useLocation, useHistory } from 'react-router-dom';
 import { AuthContext } from '../../context.js';
 import { setAuthToken } from '../../utils.js';
+import { GiHamburgerMenu } from 'react-icons/gi';
+import { CgClose } from 'react-icons/cg';
+import { MEDIA_QUERY_MD } from '../../style/breakpoint';
+import useRWD from '../../hooks/useRWD.js';
 
-const Wrapper = styled.div`
-  height: 64px;
+const Wrapper = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
 
-  box-shadow: 0px 4px 8px #555;
-  padding: 0 2rem;
-  font-size: 1.2rem;
-  box-sizing: border-box;
-  background: #fff;
-  color: #555;
+  ${MEDIA_QUERY_MD} {
+    flex-direction: column;
+  }
 `;
 
-const LeftContainer = styled.div`
+const Heading = styled.nav`
+  width: 100vw;
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  justify-content: space-between;
 `;
 
 const Brand = styled(Link)`
   text-decoration: none;
   font-weight: bold;
   font-size: 2rem;
-  margin-right: 1rem;
+  display: border-box;
+  padding: 0.5rem;
 `;
 
+const IconWrapper = styled.div`
+  background-color: ${({ theme }) => theme.colors.text};
+  color: ${({ theme }) => theme.colors.body};
+  font-size: 1.5rem;
+  padding: 0.4rem 0.5rem;
+  border-radius: 10px;
+  align-self: center;
+  margin-right: 0.5rem;
+`;
+
+// const LeftContainer = styled.div`
+//   display: flex;
+//   justify-content: flex-start;
+//   align-items: center;
+// `;
+
 const NavList = styled.nav`
+  width: 100%;
   display: flex;
-  align-items: center;
-  height: 64px;
+  align-items: flex-end;
+  transition: 0.3s;
+
+  ${MEDIA_QUERY_MD} {
+    flex-direction: column;
+    background-color: ${({ theme }) => theme.colors.div};
+    color: ${({ theme }) => theme.colors.text};
+  }
 `;
 
 const NavItem = styled(Link)`
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
-  width: 100px;
-  height: 64px;
+  align-items: center; */
+  align-self: stretch;
+  text-align: center;
   cursor: pointer;
-  color: black;
   text-decoration: none;
+  padding: 10px;
+  transition: ease-out;
+  font-weight: bolder;
+  transition: 0.3s;
 
   &:hover {
-    background-color: blue;
+    box-shadow: inset 0 -8px ${({ theme }) => theme.colors.link.text};
   }
 
-  ${(props) =>
-    props.$active &&
-    `
-    background: rgba(0,0,0,0.15)
-  `}
+  & + & {
+    border-top: 1px solid ${({ theme }) => theme.colors.darkwhite};
+  }
 `;
 
 export default function Header() {
   const location = useLocation();
   const history = useHistory();
   const { user, setUser } = useContext(AuthContext);
+  const [navToggle, setNavToggle] = useState('false');
+  const device = useRWD();
 
   const handleLogout = () => {
     setAuthToken('');
@@ -73,58 +96,80 @@ export default function Header() {
     if (location.pathname !== '/') {
       history.push('/');
     }
+    setNavToggle((prevState) => !prevState);
+  };
+
+  const handleNavDisplay = () => {
+    setNavToggle((prevState) => !prevState);
   };
 
   return (
     <Wrapper>
-      <LeftContainer>
-        <Brand to='/' $active={location.pathname === '/'}>
-          My Blog
-        </Brand>
+      <Heading>
+        <Brand to='/' $active={location.pathname === '/'} children='My Blog' />
+        {device !== 'PC' && (
+          <IconWrapper>
+            {navToggle ? (
+              <GiHamburgerMenu onClick={handleNavDisplay} />
+            ) : (
+              <CgClose onClick={handleNavDisplay} />
+            )}
+          </IconWrapper>
+        )}
+
+        {console.log('navToggle', navToggle)}
+      </Heading>
+
+      {navToggle && (
         <NavList>
+          {console.log('navToggle', navToggle)}
           <NavItem
             to='/'
             $active={location.pathname === '/'}
             children='Posts'
+            onClick={handleNavDisplay}
           />
-          {user && (
-            <>
-              <NavItem
-                to='/new-post'
-                $active={location.pathname === '/new-post'}
-                children='New Post'
-              />
-              <NavItem
-                to='/about'
-                $active={location.pathname === '/about'}
-                children='About'
-              />
-            </>
-          )}
           <NavItem
             to='/message'
             $active={location.pathname === '/message'}
             children='Message Board'
           />
+          {user ? (
+            <>
+              <NavItem
+                to='/new-post'
+                $active={location.pathname === '/new-post'}
+                children='New Post'
+                onClick={handleNavDisplay}
+              />
+              <NavItem
+                to='/about'
+                $active={location.pathname === '/about'}
+                children='About'
+                onClick={handleNavDisplay}
+              />
+              <NavItem to='/' onClick={handleLogout}>
+                Logout
+              </NavItem>
+            </>
+          ) : (
+            <>
+              <NavItem
+                to='/login'
+                $active={location.pathname === '/login'}
+                children='Login'
+                onClick={handleNavDisplay}
+              />
+              <NavItem
+                to='/register'
+                $active={location.pathname === '/register'}
+                children='Register'
+                onClick={handleNavDisplay}
+              />
+            </>
+          )}
         </NavList>
-      </LeftContainer>
-      <NavList>
-        {!user && (
-          <>
-            <NavItem to='/login' $active={location.pathname === '/login'}>
-              Login
-            </NavItem>
-            <NavItem to='/register' $active={location.pathname === '/register'}>
-              Register
-            </NavItem>
-          </>
-        )}
-        {user && (
-          <NavItem to='/' onClick={handleLogout}>
-            Logout
-          </NavItem>
-        )}
-      </NavList>
+      )}
     </Wrapper>
   );
 }

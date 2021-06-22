@@ -1,16 +1,10 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { GlobalStyle } from '../../constants/globalStyle.js';
+import { Container } from '../../style/commonLayout';
 import PropTypes from 'prop-types';
 
 const API_ENDPOINT = 'https://student-json-api.lidemy.me/comments';
 
-const Container = styled.div`
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 30px;
-  font-size: 1rem;
-`;
 const Title = styled.h1`
   font-size: 2rem;
   font-weight: bold;
@@ -158,7 +152,6 @@ export default function MessageBoard() {
 
   return (
     <>
-      <GlobalStyle />
       <Container>
         {isLoadingPostMessage && <Loading children={'loading...'} />}
         <Title>留言板</Title>
