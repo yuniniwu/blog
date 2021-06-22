@@ -1,35 +1,33 @@
 // import { useState, useCallback, useLayoutEffect, useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
+import { MEDIA_QUERY_MD } from '../../style/breakpoint';
 
 const PaginationWrap = styled.div`
   text-align: center;
   padding: 1rem 0;
   font-size: 1.2rem;
-
-  p {
-    margin-top: 1rem;
-  }
-
-  button {
-    font-size: 1.2rem;
-    margin: 0 1rem;
-  }
 `;
 
 const PaginationList = styled.a`
-  padding: 0 1rem;
+  margin: 0 1rem;
+  padding: 0 0.2rem;
   cursor: pointer;
 
   ${(prop) =>
     prop.$active &&
     `
-      background: rgba(0,0,0,0.15)
+      border-bottom: 4px solid #BD4940
     `}
 `;
 
-function Button({ onClick, children }) {
-  return <button onClick={onClick}>{children}</button>;
+function Button({ handleClick, children }) {
+  return (
+    <button className='btn' onClick={handleClick}>
+      {children}
+    </button>
+  );
 }
 
 export default function Pagination({
@@ -40,7 +38,9 @@ export default function Pagination({
 }) {
   return (
     <PaginationWrap>
-      <Button onClick={handlePageChanged}>上一頁</Button>
+      <Button handleClick={handlePageChanged}>
+        <IoIosArrowBack />
+      </Button>
       {pageArray.map((item) => {
         return (
           <PaginationList
@@ -52,7 +52,9 @@ export default function Pagination({
           </PaginationList>
         );
       })}
-      <Button onClick={handlePageChanged}>下一頁</Button>
+      <Button handleClick={handlePageChanged}>
+        <IoIosArrowForward />
+      </Button>
     </PaginationWrap>
   );
 }

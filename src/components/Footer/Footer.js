@@ -13,6 +13,7 @@ const Text = styled.p``;
 const MyLink = styled.a`
   display: block;
   text-decoration: none;
+  margin-top: 10px;
 
   &:hover {
     color: blue;

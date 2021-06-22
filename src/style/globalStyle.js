@@ -33,7 +33,9 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   button.btn {
-    background-color: ${({ theme }) => theme.colors.button.background};
-    color: ${({ theme }) => theme.colors.button.text};
+    font-size: 1.2rem;
+    padding: 1rem;
+    border-radius: 50%;
+    box-shadow: 0px 0px 10px 5px ${({ theme }) => theme.colors.shadow};
   }
 `;
