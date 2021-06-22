@@ -1,5 +1,6 @@
 import styled, { ThemeProvider } from 'styled-components';
 import { GlobalStyle } from '../../constants/globalStyle.js';
+import { Reset } from 'styled-reset';
 import * as themes from '../../constants/theme/schema.json';
 import { useTheme } from '../../constants/theme/useTheme';
 import WebFont from 'webfontloader';
@@ -59,6 +60,7 @@ export default function App() {
         <ThemeProvider theme={themeMode}>
           <Router basename='/blog'>
             <>
+              <Reset />
               <GlobalStyle />
               <Container style={{ fontFamily: themeMode.font }}>
                 <Header />
