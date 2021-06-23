@@ -1,11 +1,10 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
-  ${
-    '' /* * {
+  * {
     outline: 1px solid 
-  } */
   }
+  
   body {
     background: ${({ theme }) => theme.colors.body};
     color: ${({ theme }) => theme.colors.text};

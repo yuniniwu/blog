@@ -40,8 +40,8 @@
         "button": {
           "text": "#ffffff",
           "background": "#0d47a1",
-          "dangerText": "#FFACA6",
-          "dangerBg" : "#BD4940"
+          "dangerText": "#BD4940",
+          "dangerBg" : "#FFACA6"
         },
         "link": {
           "text": "#0d47a1",

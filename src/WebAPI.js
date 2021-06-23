@@ -15,7 +15,9 @@ export const getPostByRange = (offset, limit) => {
 };
 
 export const getArticle = (postId) => {
-  return fetch(`${BASE_URL}/posts/${postId}`).then((res) => res.json());
+  return fetch(`${BASE_URL}/posts/${postId}?_expand=user`)
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
 };
 
 export const login = (username, password) => {
