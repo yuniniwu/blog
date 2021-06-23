@@ -3,12 +3,13 @@ import { MEDIA_QUERY_MD, MEDIA_QUERY_SM } from './breakpoint';
 
 const Container = styled.div`
   max-width: 960px;
-  min-height: calc(100vh - 132px);
+  min-height: calc(100vh - 192px);
   margin: 0 auto;
   position: relative;
 `;
 
 const LoginForm = styled.form`
+  max-width: 360px;
   background-color: ${({ theme }) => theme.colors.darkwhite};
   padding: 4rem 2rem;
   border-radius: 10px;
@@ -18,8 +19,8 @@ const LoginForm = styled.form`
   transform: translate(-50%, -50%);
 
   p {
-    margin: 0.5rem 0;
-    color: ${({ theme }) => theme.colors.div.divText};
+    margin: 1rem 0;
+    color: ${({ theme }) => theme.colors.card.text};
   }
 `;
 

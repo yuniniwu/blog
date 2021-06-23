@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.footer`
-  padding: 20px;
+  padding: 1.6rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  background-color: #e6e4dc;
 `;
 
 const Text = styled.p``;
@@ -14,6 +15,7 @@ const MyLink = styled.a`
   display: inline-block;
   text-decoration: none;
   margin-top: 10px;
+  font-size: 0.8rem;
 
   &:hover {
     color: ${({ theme }) => theme.colors.msg.text};

@@ -80,7 +80,7 @@ const ReadMore = styled(Link)`
   }
 `;
 
-export default function PostItem({ post }) {
+export default function SpPostItem({ post }) {
   return (
     <PostContainer>
       <LeftWrapper>
@@ -96,6 +96,6 @@ export default function PostItem({ post }) {
   );
 }
 
-PostItem.propTypes = {
+SpPostItem.propTypes = {
   post: PropTypes.object.isRequired,
 };

@@ -57,43 +57,43 @@ export default function App() {
             <>
               <Reset />
               <GlobalStyle />
-              <Container style={{ fontFamily: themeMode.font }}>
-                <Header />
-                {/* router */}
-                <Switch>
-                  <Route path='/author/:userId'>
-                    <AuthorArticlesPage />
-                  </Route>
-                  <Route path='/message'>
-                    <MessageBoard />
-                  </Route>
-                  <Route path='/about'>
-                    <AboutPage />
-                  </Route>
-                  <Route path='/login'>
-                    <LoginPage />
-                  </Route>
-                  <Route path='/register'>
-                    <RegisterPage />
-                  </Route>
-                  <Route path='/posts/:articleId'>
-                    <SingleArticlePage />
-                  </Route>
-                  <Route path='/new-post'>
-                    <NewPostPage />
-                  </Route>
-                  <Route path='/edit-page/:articleId'>
-                    <EditPage />
-                  </Route>
-                  <Route path='/articles'>
-                    <ArticleListPage />
-                  </Route>
-                  <Route exact path='/'>
-                    <HomePage />
-                  </Route>
-                </Switch>
-                <Footer />
-              </Container>
+              {/* <Container style={{ fontFamily: themeMode.font }}> */}
+              <Header />
+              {/* router */}
+              <Switch>
+                <Route path='/author/:userId'>
+                  <AuthorArticlesPage />
+                </Route>
+                <Route path='/message'>
+                  <MessageBoard />
+                </Route>
+                <Route path='/about'>
+                  <AboutPage />
+                </Route>
+                <Route path='/login'>
+                  <LoginPage />
+                </Route>
+                <Route path='/register'>
+                  <RegisterPage />
+                </Route>
+                <Route path='/posts/:articleId'>
+                  <SingleArticlePage />
+                </Route>
+                <Route path='/new-post'>
+                  <NewPostPage />
+                </Route>
+                <Route path='/edit-page/:articleId'>
+                  <EditPage />
+                </Route>
+                <Route path='/articles'>
+                  <ArticleListPage />
+                </Route>
+                <Route exact path='/'>
+                  <HomePage />
+                </Route>
+              </Switch>
+              <Footer />
+              {/* </Container> */}
             </>
           </Router>
         </ThemeProvider>
