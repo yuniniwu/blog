@@ -1,66 +1,39 @@
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { getPostByRange } from '../../WebAPI';
-import Pagination from '../../components/Pagination';
 import PostItem from '../../components/PostItem';
 import { Container } from '../../style/commonLayout';
+import styled from 'styled-components';
+import { ReactComponent as HomeImg } from '../../image/HomeImg.svg';
+
+const ImageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  & svg {
+    max-width: 100%;
+    height: auto;
+  }
+`;
 
 export default function HomePage() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [currentPosts, setCurrentPosts] = useState([]);
-  const limit = 5;
-
-  const totalPost = useRef(null);
+  const [posts, setPosts] = useState([]);
+  // const [author, setAuthor] = useState('')
+  const limit = 3;
 
   useEffect(() => {
-    getPostByRange((currentPage - 1) * limit, limit).then((res) => {
-      // 從 response header 拿到 posts 總筆數
-      totalPost.current = res.headers.get('x-total-count');
-      res.json().then((posts) => setCurrentPosts(posts));
+    getPostByRange(0, limit).then((res) => {
+      res.json().then((posts) => setPosts(posts));
     });
-  }, [currentPage]);
-
-  const totalPage = Math.ceil(totalPost.current / limit);
-
-  // for pagination
-  const pageArray = [];
-  for (let i = 1; i <= totalPage; i++) {
-    pageArray.push(i);
-  }
-
-  const handlePageChanged = useCallback(
-    (e) => {
-      const target = e.target.id;
-
-      if (target === 'back') {
-        if (currentPage <= 1) return;
-        setCurrentPage((currentPage) => currentPage - 1);
-      }
-
-      if (target === 'forward') {
-        if (currentPage >= totalPage) return;
-        setCurrentPage((currentPage) => currentPage + 1);
-      }
-    },
-    [currentPage, totalPage]
-  );
-
-  const handleCurrentPosts = useCallback((e) => {
-    const clickedPage = Number(e.target.innerText);
-    setCurrentPage(clickedPage);
   }, []);
 
   return (
     <Container>
-      <p>HomePage</p>
-      {currentPosts.map((post) => (
+      <ImageWrapper>
+        <HomeImg />
+      </ImageWrapper>
+      {posts.map((post) => (
         <PostItem key={post.id} post={post} />
       ))}
-      <Pagination
-        pageArray={pageArray}
-        handlePageChanged={handlePageChanged}
-        currentPage={currentPage}
-        handleCurrentPosts={handleCurrentPosts}
-      />
     </Container>
   );
 }

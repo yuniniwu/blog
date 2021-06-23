@@ -10,7 +10,7 @@ export const getPost = () => {
 
 export const getPostByRange = (offset, limit) => {
   return fetch(
-    `${BASE_URL}/posts?_sort=createdAt&_order=desc&_start=${offset}&_limit=${limit}`
+    `${BASE_URL}/posts?_sort=createdAt&_order=desc&_start=${offset}&_limit=${limit}&_expand=user`
   ).then();
 };
 
