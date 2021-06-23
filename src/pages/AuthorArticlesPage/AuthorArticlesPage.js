@@ -1,24 +1,22 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import { getAuthorArticles } from '../../WebAPI';
 import PostItem from '../../components/PostItem';
 import { useParams } from 'react-router-dom';
-
-const Container = styled.div`
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 30px;
-  font-size: 1rem;
-`;
+import { Container } from '../../style/commonLayout';
 
 const Heading = styled.h2`
   font-size: 1.5rem;
+  margin: 1rem;
 
   mark {
     display: inline-block;
-    box-sizing: border-box;
-    background-color: #e6fcf2;
+    padding: 0 1rem;
+    border-radius: 10px;
+    box-shadow: 0px 0px 6px 3px ${({ theme }) => theme.colors.button.dangerBg}
+      inset;
+    background-color: ${({ theme }) => theme.colors.darkwhite};
+    color: ${({ theme }) => theme.colors.card.text};
   }
 `;
 

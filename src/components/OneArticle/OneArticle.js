@@ -15,12 +15,13 @@ const ArticleContainer = styled.div`
 
 const Title = styled.h2`
   font-size: 1.5rem;
+  line-height: 1.8rem;
   font-weight: bold;
-  line-height: 1.5rem;
 
   /* 小於 768 */
   ${MEDIA_QUERY_SM} {
     font-size: 1.2rem;
+    line-height: 1.5rem;
   }
   clear: both;
 `;

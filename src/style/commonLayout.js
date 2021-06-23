@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { MEDIA_QUERY_MD } from './breakpoint';
+import { MEDIA_QUERY_MD, MEDIA_QUERY_SM } from './breakpoint';
 
 const Container = styled.div`
   max-width: 960px;
@@ -23,6 +23,11 @@ const LoginForm = styled.form`
   }
 `;
 
+const PostForm = styled.form`
+  background-color: ${({ theme }) => theme.colors.darkwhite};
+  padding: 2rem;
+`;
+
 const TextInput = styled.input`
   box-sizing: border-box;
   width: 100%;
@@ -35,6 +40,24 @@ const TextInput = styled.input`
 
   & + & {
     margin-top: 1rem;
+  }
+`;
+
+const AreaInput = styled.textarea`
+  width: 100%;
+  min-height: calc(100vh - 132px - 113px);
+  margin: 1rem 0;
+  box-sizing: border-box;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 10px;
+  background-color: ${({ theme }) => theme.colors.body};
+  color: ${({ theme }) => theme.colors.text};
+  box-shadow: 0px 0px 10px 5px ${({ theme }) => theme.colors.shadow} inset;
+
+  ${MEDIA_QUERY_SM} {
+    max-width: 100%;
   }
 `;
 
@@ -77,4 +100,12 @@ const ErrorMessage = styled.div`
   color: red;
 `;
 
-export { Container, LoginForm, TextInput, SubmitInput, ErrorMessage };
+export {
+  Container,
+  LoginForm,
+  PostForm,
+  TextInput,
+  AreaInput,
+  SubmitInput,
+  ErrorMessage,
+};

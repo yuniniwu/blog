@@ -14,7 +14,7 @@ import {
 export default function LoginPage() {
   const { setUser } = useContext(AuthContext);
   const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState('Lidemy');
   const [errMessage, setErrMessage] = useState('');
   const history = useHistory();
   // disabled submit button or not
@@ -67,10 +67,11 @@ export default function LoginPage() {
           onFocus={handleInputFocus}
         />
         <TextInput
-          value='Lidemy'
+          value={password}
           onChange={handlePasswordChange}
           onFocus={handleInputFocus}
           type='password'
+          readOnly
         />
         <p>為方便 DEMO 密碼皆為預設值</p>
         <SubmitInput type='submit' value={'Login'} disabled={isDisabled} />
