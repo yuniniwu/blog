@@ -1,17 +1,24 @@
 ## 部落格
-[DEMO](https://yuniniwu.github.io/blog/) 練習使用 React Router 實作 SPA
-  - 帳號：user01
-  - 密碼：Lidemy
+[DEMO](https://yuniniwu.github.io/blog/)
+- 使用技術：
+  - React hooks
+  - React Router
+  - styled component
+- 串接 [Lidemy API](https://github.com/Lidemy/lidemy-student-json-api-server)
+
+- 帳密
+  - user01:Lidemy
 
 PC           |  Mobile
 :-------------------------:|:-------------------------:
 ![pc](https://user-images.githubusercontent.com/20063249/123165262-98506f80-d4a6-11eb-8291-e2332bf4f2bc.png)  |  ![mobile](https://user-images.githubusercontent.com/20063249/123165344-b027f380-d4a6-11eb-9794-d7e91fd38885.png)
 
-#### 登入頁面、註冊頁面（串的是練習用的API，密碼會預設為 Lidemy）
-
+#### 登入頁面、註冊頁面
+欄位空白會跳出錯誤訊息
 ![登入頁面](https://user-images.githubusercontent.com/20063249/123166196-ba96bd00-d4a7-11eb-8a8c-8c5f7cfd3d4d.gif)
 
-#### 文章列表頁面：可以看到所有文章，一頁只會顯示 5 筆，需要支援分頁功能，可以換頁
+#### 文章列表頁面
+可以看到所有文章，一頁只會顯示 5 筆，有分頁功能
 
 ![全部文章](https://user-images.githubusercontent.com/20063249/123166810-65a77680-d4a8-11eb-9924-1b84ede58cb6.gif)
 
