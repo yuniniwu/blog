@@ -38,5 +38,9 @@ export const GlobalStyle = createGlobalStyle`
     padding: 1rem;
     border-radius: 50%;
     box-shadow: 0px 0px 10px 5px ${({ theme }) => theme.colors.shadow};
+
+    & svg {
+      pointer-events: none;
+    }
   }
 `;

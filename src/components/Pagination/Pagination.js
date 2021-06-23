@@ -1,8 +1,6 @@
-// import { useState, useCallback, useLayoutEffect, useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
-import { MEDIA_QUERY_MD } from '../../style/breakpoint';
 
 const PaginationWrap = styled.div`
   text-align: center;
@@ -15,16 +13,16 @@ const PaginationList = styled.a`
   padding: 0 0.2rem;
   cursor: pointer;
 
-  ${(prop) =>
-    prop.$active &&
+  ${(props) =>
+    props.$active &&
     `
-      border-bottom: 4px solid #BD4940
+      border-bottom: 4px solid #16694E
     `}
 `;
 
-function Button({ handleClick, children }) {
+function Button({ handleClick, children, id }) {
   return (
-    <button className='btn' onClick={handleClick}>
+    <button id={id} className='btn' onClick={handleClick}>
       {children}
     </button>
   );
@@ -38,7 +36,7 @@ export default function Pagination({
 }) {
   return (
     <PaginationWrap>
-      <Button handleClick={handlePageChanged}>
+      <Button id='back' handleClick={handlePageChanged}>
         <IoIosArrowBack />
       </Button>
       {pageArray.map((item) => {
@@ -52,7 +50,7 @@ export default function Pagination({
           </PaginationList>
         );
       })}
-      <Button handleClick={handlePageChanged}>
+      <Button id='forward' handleClick={handlePageChanged}>
         <IoIosArrowForward />
       </Button>
     </PaginationWrap>

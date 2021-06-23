@@ -102,3 +102,19 @@ export const getAuthorArticles = (id) => {
     res.json()
   );
 };
+
+export const getMessages = () => {
+  return fetch(`${BASE_URL}/comments?_sort=createdAt&_order=desc`).then((res) =>
+    res.json()
+  );
+};
+
+export const newMessages = (value) => {
+  return fetch(`${BASE_URL}/comments`, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(value),
+  }).then((res) => res.json());
+};

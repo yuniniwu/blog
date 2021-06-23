@@ -2,9 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Container, ErrorMessage } from '../../style/commonLayout';
-import { getMessage, newMessage } from '../../WebAPI';
-
-const API_ENDPOINT = 'https://student-json-api.lidemy.me/comments';
+import { getMessages, newMessages } from '../../WebAPI';
 
 const Title = styled.h2`
   font-size: 1.5rem;
@@ -110,19 +108,17 @@ export default function MessageBoard() {
   const [value, setValue] = useState({ nickname: '', body: '' });
   const [postMessageError, setPostMessageError] = useState();
   const [isLoadingPostMessage, setIsLoadingPostMessage] = useState(false);
-
   const { nickname, body } = value;
 
-  const fetchMessages = () => {
-    return fetch(API_ENDPOINT + '?_sort=createdAt&_order=desc')
-      .then((response) => response.json())
+  useEffect(() => {
+    getMessages()
       .then((data) => {
         setMessages(data);
       })
       .catch((err) => {
         setMessageApiError(err.message);
       });
-  };
+  }, []);
 
   const handleInputChange = (e) => {
     const changedValue = e.target.value;
@@ -137,18 +133,12 @@ export default function MessageBoard() {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     if (isLoadingPostMessage) return;
-    setIsLoadingPostMessage(true);
+
     // TODO: 檢查輸入是否為空
+    // if (!nickname || !body) return;
+    setIsLoadingPostMessage(true);
 
-    fetch(API_ENDPOINT, {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify(value),
-    })
-      .then((res) => res.json())
-
+    newMessages(value)
       .then((data) => {
         setIsLoadingPostMessage(false);
         // 如果 fetch 拿到的資料有問題的話
@@ -157,17 +147,13 @@ export default function MessageBoard() {
           return;
         }
         setValue({ nickname: '', body: '' });
-        fetchMessages();
+        getMessages();
       })
       .catch((err) => {
         setIsLoadingPostMessage(false);
         setPostMessageError(err.message);
       });
   };
-
-  useEffect(() => {
-    fetchMessages();
-  }, []);
 
   return (
     <Container>

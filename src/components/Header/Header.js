@@ -29,7 +29,7 @@ const Brand = styled(Link)`
   font-weight: bold;
   font-size: 2rem;
   display: border-box;
-  padding: 0.5rem;
+  padding: 1rem;
 `;
 
 const IconWrapper = styled.div`

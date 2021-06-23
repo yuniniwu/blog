@@ -32,14 +32,14 @@ export default function HomePage() {
 
   const handlePageChanged = useCallback(
     (e) => {
-      const target = e.target.innerText;
+      const target = e.target.id;
 
-      if (target === '上一頁') {
+      if (target === 'back') {
         if (currentPage <= 1) return;
         setCurrentPage((currentPage) => currentPage - 1);
       }
 
-      if (target === '下一頁') {
+      if (target === 'forward') {
         if (currentPage >= totalPage) return;
         setCurrentPage((currentPage) => currentPage + 1);
       }
