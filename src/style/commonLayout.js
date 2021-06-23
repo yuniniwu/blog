@@ -54,7 +54,7 @@ const AreaInput = styled.textarea`
   border-radius: 10px;
   background-color: ${({ theme }) => theme.colors.body};
   color: ${({ theme }) => theme.colors.text};
-  box-shadow: 0px 0px 10px 5px ${({ theme }) => theme.colors.shadow} inset;
+  box-shadow: 0px 0px 15px 2px ${({ theme }) => theme.colors.shadow} inset;
 
   ${MEDIA_QUERY_SM} {
     max-width: 100%;

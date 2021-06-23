@@ -11,12 +11,12 @@ const Wrapper = styled.footer`
 const Text = styled.p``;
 
 const MyLink = styled.a`
-  display: block;
+  display: inline-block;
   text-decoration: none;
   margin-top: 10px;
 
   &:hover {
-    color: blue;
+    color: ${({ theme }) => theme.colors.msg.text};
   }
 `;
 
@@ -25,6 +25,7 @@ export default function Footer() {
     <Wrapper>
       <Text>© 2021 Yuni Wu</Text>
       <MyLink href='https://github.com/yuniniwu/blog'>Source Code</MyLink>
+      <MyLink href='https://www.manypixels.co/gallery'>illustration ©</MyLink>
     </Wrapper>
   );
 }

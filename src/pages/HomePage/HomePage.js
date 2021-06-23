@@ -7,7 +7,7 @@ import { ReactComponent as HomeImg } from '../../image/HomeImg.svg';
 
 const ImageWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  justify-content: center;
 
   & svg {
     max-width: 100%;
@@ -17,8 +17,7 @@ const ImageWrapper = styled.div`
 
 export default function HomePage() {
   const [posts, setPosts] = useState([]);
-  // const [author, setAuthor] = useState('')
-  const limit = 3;
+  const limit = 2;
 
   useEffect(() => {
     getPostByRange(0, limit).then((res) => {

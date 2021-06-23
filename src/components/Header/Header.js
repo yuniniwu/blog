@@ -126,7 +126,7 @@ export default function Header() {
           <NavItem
             to='/articles'
             $active={location.pathname === '/articles'}
-            children='Posts'
+            children='All Posts'
             onClick={handleNavDisplay}
           />
           <NavItem
@@ -139,7 +139,7 @@ export default function Header() {
               <NavItem
                 to='/new-post'
                 $active={location.pathname === '/new-post'}
-                children='New Post'
+                children='Write a story'
                 onClick={handleNavDisplay}
               />
               <NavItem

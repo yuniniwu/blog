@@ -43,6 +43,7 @@ const RightWrapper = styled.div`
 
 const PostTitle = styled.h3`
   font-size: 1.5rem;
+  font-weight: bold;
 `;
 
 const PostTime = styled.div`
@@ -61,6 +62,7 @@ const PostPreview = styled.p`
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
+  line-height: 1.5rem;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   white-space: normal;

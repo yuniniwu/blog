@@ -60,7 +60,7 @@ export default function NewPostPage() {
       {user && (
         <PostForm onSubmit={handleSubmit}>
           <TextInput
-            placeholder='title'
+            placeholder='Title'
             value={title}
             onChange={handleTitleChange}
             onFocus={handleInputFocus}

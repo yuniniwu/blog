@@ -5,10 +5,10 @@
       "name": "Light",
       "colors": {
         "body": "#eeede7",
-        "text": "#4f5742",
+        "text": "#4b5a63",
         "placeholder" : "#aaa",
         "div": "#76B6A1",
-        "divText": "#e5f7c6",
+        "divText": "#FFD300",
         "button": {
           "text": "#eee",
           "background": "#16694E",
@@ -20,7 +20,7 @@
           "opacity": 1
         },
         "card": {
-          "text": "#000",
+          "text": "#4a635b",
           "background": "#f9f9f8"
         },
         "msg": {
