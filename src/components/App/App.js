@@ -1,4 +1,4 @@
-import styled, { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import { GlobalStyle } from '../../style/globalStyle.js';
 import { Reset } from 'styled-reset';
 import * as themes from '../../style/theme/schema.json';
@@ -15,9 +15,10 @@ import { getMe } from '../../WebAPI';
 import { getAuthToken, setThemeToLS, getThemes } from '../../utils';
 import {
   HomePage,
+  ArticleListPage,
   LoginPage,
   RegisterPage,
-  ArticlePage,
+  SingleArticlePage,
   AboutPage,
   NewPostPage,
   EditPage,
@@ -76,13 +77,16 @@ export default function App() {
                     <RegisterPage />
                   </Route>
                   <Route path='/posts/:articleId'>
-                    <ArticlePage />
+                    <SingleArticlePage />
                   </Route>
                   <Route path='/new-post'>
                     <NewPostPage />
                   </Route>
                   <Route path='/edit-page/:articleId'>
                     <EditPage />
+                  </Route>
+                  <Route path='/articles'>
+                    <ArticleListPage />
                   </Route>
                   <Route exact path='/'>
                     <HomePage />

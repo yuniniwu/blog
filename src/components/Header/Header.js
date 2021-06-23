@@ -124,8 +124,8 @@ export default function Header() {
         <NavList>
           {console.log('navToggle', navToggle)}
           <NavItem
-            to='/'
-            $active={location.pathname === '/'}
+            to='/articles'
+            $active={location.pathname === '/articles'}
             children='Posts'
             onClick={handleNavDisplay}
           />

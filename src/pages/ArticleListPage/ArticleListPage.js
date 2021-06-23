@@ -4,7 +4,7 @@ import Pagination from '../../components/Pagination';
 import PostItem from '../../components/PostItem';
 import { Container } from '../../style/commonLayout';
 
-export default function HomePage() {
+export default function ArticleListPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [currentPosts, setCurrentPosts] = useState([]);
   const limit = 5;
@@ -51,7 +51,6 @@ export default function HomePage() {
 
   return (
     <Container>
-      <p>HomePage</p>
       {currentPosts.map((post) => (
         <PostItem key={post.id} post={post} />
       ))}
