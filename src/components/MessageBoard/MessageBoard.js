@@ -1,41 +1,59 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Container } from '../../style/commonLayout';
 import PropTypes from 'prop-types';
+import { Container, ErrorMessage } from '../../style/commonLayout';
+import { getMessage, newMessage } from '../../WebAPI';
 
 const API_ENDPOINT = 'https://student-json-api.lidemy.me/comments';
 
-const Title = styled.h1`
-  font-size: 2rem;
+const Title = styled.h2`
+  font-size: 1.5rem;
   font-weight: bold;
   text-align: center;
+  margin: 1rem 0;
 `;
 
 const MessageForm = styled.div`
-  margin: 10px;
+  padding: 1rem;
+  text-align: center;
 `;
 
 const MessageNickName = styled.input`
-  margin-bottom: 10px;
+  width: calc(100% - 1rem);
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid ${({ theme }) => theme.colors.shadow};
 `;
 const MessageTextArea = styled.textarea`
+  width: calc(100% - 1rem);
+  padding: 0.5rem;
+  font-size: 1.2rem;
   display: block;
-  width: 100%;
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid ${({ theme }) => theme.colors.shadow};
 `;
 const SubmitButton = styled.button`
-  margin-top: 8px;
+  margin-top: 1rem;
   font-size: 1rem;
 `;
 
 const MessageList = styled.div`
-  margin: 10px;
+  margin: 1rem;
 `;
 
 const MessageContainer = styled.div`
-  padding: 20px;
+  background-color: ${({ theme }) => theme.colors.msg.background};
+  color: ${({ theme }) => theme.colors.msg.text};
+  border: 1px solid ${({ theme }) => theme.colors.shadow};
+  border-radius: 10px;
+  padding: 1.2rem;
 
   & + & {
-    border-top: 1px solid black;
+    margin-top: 1rem;
   }
 `;
 const MessageHeader = styled.div`
@@ -45,14 +63,27 @@ const MessageHeader = styled.div`
   border-bottom: 1px solid gray;
 `;
 const Author = styled.p``;
-const MessageTime = styled.p``;
+
+const MessageTime = styled.p`
+  color: ${({ theme }) => theme.colors.placeholder};
+`;
 
 const MessageBody = styled.p`
   margin-top: 10px;
 `;
 
-const ErrorMessage = styled.div`
-  color: red;
+const Loading = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 function MessageItem({ children, author, time }) {
@@ -72,20 +103,6 @@ MessageItem.propTypes = {
   author: PropTypes.string,
   time: PropTypes.string,
 };
-
-const Loading = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  font-size: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
 
 export default function MessageBoard() {
   const [messages, setMessages] = useState(null);
@@ -121,6 +138,7 @@ export default function MessageBoard() {
     e.preventDefault();
     if (isLoadingPostMessage) return;
     setIsLoadingPostMessage(true);
+    // TODO: 檢查輸入是否為空
 
     fetch(API_ENDPOINT, {
       method: 'POST',
@@ -130,6 +148,7 @@ export default function MessageBoard() {
       body: JSON.stringify(value),
     })
       .then((res) => res.json())
+
       .then((data) => {
         setIsLoadingPostMessage(false);
         // 如果 fetch 拿到的資料有問題的話
@@ -151,51 +170,50 @@ export default function MessageBoard() {
   }, []);
 
   return (
-    <>
-      <Container>
-        {isLoadingPostMessage && <Loading children={'loading...'} />}
-        <Title>留言板</Title>
-        <MessageForm>
-          暱稱：
-          <MessageNickName
-            name={'nickname'}
-            value={nickname}
-            onChange={handleInputChange}
-            onFocus={handleInputFocus}
-          />
-          <MessageTextArea
-            name={'body'}
-            value={body}
-            onChange={handleInputChange}
-            onFocus={handleInputFocus}
-            rows={10}
-          ></MessageTextArea>
-          <SubmitButton onClick={handleFormSubmit}>送出</SubmitButton>
-          {postMessageError && <ErrorMessage>{postMessageError}</ErrorMessage>}
-        </MessageForm>
+    <Container>
+      {isLoadingPostMessage && <Loading children={'loading...'} />}
+      <Title>Message Board</Title>
+      <MessageForm>
+        <MessageNickName
+          placeholder='nickname'
+          name={'nickname'}
+          value={nickname}
+          onChange={handleInputChange}
+          onFocus={handleInputFocus}
+        />
+        <MessageTextArea
+          placeholder='leave your message here'
+          name={'body'}
+          value={body}
+          onChange={handleInputChange}
+          onFocus={handleInputFocus}
+          rows={10}
+        ></MessageTextArea>
+        <SubmitButton onClick={handleFormSubmit}>Submit</SubmitButton>
+        {postMessageError && <ErrorMessage>{postMessageError}</ErrorMessage>}
+      </MessageForm>
 
-        {messageApiError && (
-          <ErrorMessage>
-            something went wrong. {messageApiError.toString()}
-          </ErrorMessage>
-        )}
+      {messageApiError && (
+        <ErrorMessage>
+          something went wrong. {messageApiError.toString()}
+        </ErrorMessage>
+      )}
 
-        {messages && messages.length === 0 && (
-          <ErrorMessage>No message fetched</ErrorMessage>
-        )}
+      {messages && messages.length === 0 && (
+        <ErrorMessage>No message fetched</ErrorMessage>
+      )}
 
-        <MessageList>
-          {messages &&
-            messages.map((message) => (
-              <MessageItem
-                key={message.id}
-                children={message.body}
-                author={message.nickname}
-                time={new Date(message.createdAt).toLocaleString()}
-              />
-            ))}
-        </MessageList>
-      </Container>
-    </>
+      <MessageList>
+        {messages &&
+          messages.map((message) => (
+            <MessageItem
+              key={message.id}
+              children={message.body}
+              author={message.nickname}
+              time={new Date(message.createdAt).toLocaleString()}
+            />
+          ))}
+      </MessageList>
+    </Container>
   );
 }

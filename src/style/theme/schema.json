@@ -23,6 +23,10 @@
           "text": "#000",
           "background": "#f9f9f8"
         },
+        "msg": {
+          "text":"#4C525F",
+          "background": "#f8f9fa"
+        },
         "darkwhite": "#f5f5f5",
         "shadow" : "#D6D5CF"
       },
