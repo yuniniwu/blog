@@ -1,35 +1,40 @@
 ## 部落格
-[DEMO](https://yuniniwu.github.io/blog/) 練習使用 React Router 實作 SPA
-  - 帳號：user01
-  - 密碼：Lidemy
+[DEMO](https://yuniniwu.github.io/blog/)
+- 使用技術：
+  - React hooks
+  - React Router
+  - styled component
+- 串接 [Lidemy API](https://github.com/Lidemy/lidemy-student-json-api-server)
 
-#### 登入頁面：輸入帳號密碼後可以登入
+- 帳密
+  - user01:Lidemy
 
-  
-  <img width="600" alt="登入頁面DEMO" src="https://user-images.githubusercontent.com/20063249/116515358-c24e4100-a8fe-11eb-8b80-1c286ec0af1e.png">
+PC           |  Mobile
+:-------------------------:|:-------------------------:
+![pc](https://user-images.githubusercontent.com/20063249/123165262-98506f80-d4a6-11eb-8291-e2332bf4f2bc.png)  |  ![mobile](https://user-images.githubusercontent.com/20063249/123165344-b027f380-d4a6-11eb-9794-d7e91fd38885.png)
 
-#### 註冊頁面：可以開放使用者註冊（使用練習用API，註冊後密碼會強制轉為 Lidemy）
+#### 登入頁面、註冊頁面
+欄位空白會跳出錯誤訊息
+![登入頁面](https://user-images.githubusercontent.com/20063249/123166196-ba96bd00-d4a7-11eb-8a8c-8c5f7cfd3d4d.gif)
 
-<img width="600" alt="註冊頁面DEMO" src="https://user-images.githubusercontent.com/20063249/116515557-080b0980-a8ff-11eb-84db-3696b2550dac.png">
+#### 文章列表頁面
+可以看到所有文章，一頁只會顯示 5 筆，有分頁功能
 
-#### About 頁面：隨意顯示一些關於這個部落格的話
+![全部文章](https://user-images.githubusercontent.com/20063249/123166810-65a77680-d4a8-11eb-9924-1b84ede58cb6.gif)
 
-<img width="600" alt="關於我頁面DEMO" src="https://user-images.githubusercontent.com/20063249/116515579-0f321780-a8ff-11eb-803d-73cb018c0f4a.png">
+#### 單篇文章頁面
 
-#### 文章列表頁面：可以看到所有文章，一頁只會顯示 5 筆，需要支援分頁功能，可以換頁
+- 點進去文章以後可以看到文章完整內容
+- 作者可以刪除、修改文章
+- 發表文章頁面
 
-<img width="600" alt="首頁DEMO" src="https://user-images.githubusercontent.com/20063249/116515608-178a5280-a8ff-11eb-8a53-36b54419d980.png">
+![文章](https://user-images.githubusercontent.com/20063249/123167943-dc913f00-d4a9-11eb-9ae5-0c2dbdfaf17c.gif)
 
-#### 單篇文章頁面：點進去文章以後可以看到文章完整內容
+#### 單一作者的所有文章列表
+- 點作者的暱稱，能進入這位作者的所有文章列表
 
-<img width="600" alt="單一文章頁面DEMO" src="https://user-images.githubusercontent.com/20063249/116516014-a4351080-a8ff-11eb-80eb-73387539f379.png">
+![作者文章列表](https://user-images.githubusercontent.com/20063249/123168231-47427a80-d4aa-11eb-8984-40fcd29551fc.gif)
 
-#### 發表文章頁面：可以輸入標題跟內文發文
 
-<img width="600" alt="編輯文章頁面DEMO" src="https://user-images.githubusercontent.com/20063249/116515590-122d0800-a8ff-11eb-8067-f6c259ca5400.png">
 
-## 留言板 串接API
 
-[DEMO](https://yuniniwu.github.io/blog/message)
-
-<img width="240" alt="留言板截圖" src="https://user-images.githubusercontent.com/20063249/115719113-5de72b00-a3ae-11eb-8f21-b9357254dc4d.png">
