@@ -42,7 +42,7 @@ export default function RegisterPage() {
     });
     setNickname('');
     setUsername('');
-    setPassword('');
+    setPassword('Lidemy');
     setIsDisabled(false);
   };
 
@@ -83,7 +83,6 @@ export default function RegisterPage() {
           onChange={handlePasswordChange}
           onFocus={handleInputFocus}
           type='password'
-          readOnly
         />
         <p>為方便 DEMO 密碼為預設值</p>
 

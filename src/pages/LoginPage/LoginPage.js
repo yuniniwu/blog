@@ -40,7 +40,7 @@ export default function LoginPage() {
       });
     });
     setUsername('');
-    setPassword('');
+    setPassword('Lidemy');
     setIsDisabled(false);
   };
 
@@ -71,7 +71,6 @@ export default function LoginPage() {
           onChange={handlePasswordChange}
           onFocus={handleInputFocus}
           type='password'
-          readOnly
         />
         <p>為方便 DEMO 密碼皆為預設值</p>
         <SubmitInput type='submit' value={'Login'} disabled={isDisabled} />

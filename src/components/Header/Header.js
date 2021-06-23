@@ -57,6 +57,9 @@ export default function Header() {
   const handleLogout = () => {
     setAuthToken('');
     setUser(null);
+    if (device !== 'PC') {
+      setNavToggle((prevState) => !prevState);
+    }
     if (location.pathname !== '/') {
       history.push('/');
     }

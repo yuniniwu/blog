@@ -55,7 +55,7 @@ export default function HomePage() {
       {posts.map((post) => (
         <PostItem key={post.id} post={post} />
       ))}
-      <MorePosts>More Posts</MorePosts>
+      <MorePosts to='/articles'>More Posts</MorePosts>
     </Container>
   );
 }
