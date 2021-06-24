@@ -18,6 +18,7 @@ PC           |  Mobile
 
 #### 登入頁面、註冊頁面
 欄位空白會跳出錯誤訊息
+
 ![登入頁面](https://user-images.githubusercontent.com/20063249/123166196-ba96bd00-d4a7-11eb-8a8c-8c5f7cfd3d4d.gif)
 
 #### 文章列表頁面
