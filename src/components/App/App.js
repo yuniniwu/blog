@@ -3,16 +3,15 @@ import { GlobalStyle } from '../../style/globalStyle.js';
 import { Reset } from 'styled-reset';
 import * as themes from '../../style/theme/schema.json';
 import { useTheme } from '../../style/theme/useTheme';
-import { Container } from '../../style/commonLayout';
-import WebFont from 'webfontloader';
+
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Header from '../Header';
 import Footer from '../Footer';
 import MessageBoard from '../MessageBoard';
-import { AuthContext, ThemeContext } from '../../context.js';
+import { AuthContext } from '../../context.js';
 import { getMe } from '../../WebAPI';
-import { getAuthToken, setThemeToLS, getThemes } from '../../utils';
+import { getAuthToken } from '../../utils';
 import {
   HomePage,
   ArticleListPage,
@@ -25,9 +24,13 @@ import {
   AuthorArticlesPage,
 } from '../../pages';
 
+// import WebFont from 'webfontloader';
+// import { ThemeContext } from '../../context.js';
+// import {  setThemeToLS, getThemes } from '../../utils';
+
 export default function App() {
   const [user, setUser] = useState(null);
-  const { theme, themeLoaded, themeSwitch, getFonts } = useTheme();
+  const { theme, themeLoaded } = useTheme();
   const themeMode = theme === 'light' ? themes.data.light : themes.data.dark;
 
   // setThemeToLS(themes.default);
@@ -57,7 +60,6 @@ export default function App() {
             <>
               <Reset />
               <GlobalStyle />
-              {/* <Container style={{ fontFamily: themeMode.font }}> */}
               <Header />
               {/* router */}
               <Switch>
@@ -93,7 +95,6 @@ export default function App() {
                 </Route>
               </Switch>
               <Footer />
-              {/* </Container> */}
             </>
           </Router>
         </ThemeProvider>

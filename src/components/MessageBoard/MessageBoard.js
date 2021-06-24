@@ -97,9 +97,9 @@ function MessageItem({ children, author, time }) {
 }
 
 MessageItem.propTypes = {
-  children: PropTypes.node,
-  author: PropTypes.string,
-  time: PropTypes.string,
+  children: PropTypes.node.isRequired,
+  author: PropTypes.string.isRequired,
+  time: PropTypes.string.isRequired,
 };
 
 export default function MessageBoard() {
@@ -107,7 +107,7 @@ export default function MessageBoard() {
   const [messageApiError, setMessageApiError] = useState(null);
   const [value, setValue] = useState({ nickname: '', body: '' });
   const [postMessageError, setPostMessageError] = useState();
-  const [isLoadingPostMessage, setIsLoadingPostMessage] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { nickname, body } = value;
 
   useEffect(() => {
@@ -132,17 +132,14 @@ export default function MessageBoard() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    if (isLoadingPostMessage) return;
+    if (isLoading) return;
 
-    // TODO: 檢查輸入是否為空
-    // if (!nickname || !body) return;
-    setIsLoadingPostMessage(true);
+    setIsLoading(true);
 
     newMessages(value)
       .then((data) => {
-        setIsLoadingPostMessage(false);
-        // 如果 fetch 拿到的資料有問題的話
-        if (data.ok === 0) {
+        setIsLoading(false);
+        if (!data.ok) {
           setPostMessageError(data.message);
           return;
         }
@@ -150,14 +147,14 @@ export default function MessageBoard() {
         getMessages();
       })
       .catch((err) => {
-        setIsLoadingPostMessage(false);
+        setIsLoading(false);
         setPostMessageError(err.message);
       });
   };
 
   return (
     <Container>
-      {isLoadingPostMessage && <Loading children={'loading...'} />}
+      {isLoading && <Loading children={'loading...'} />}
       <Title>Message Board</Title>
       <MessageForm>
         <MessageNickName

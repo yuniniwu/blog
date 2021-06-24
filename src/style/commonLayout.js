@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { MEDIA_QUERY_MD, MEDIA_QUERY_SM } from './breakpoint';
+import { MEDIA_QUERY_SM } from './breakpoint';
 
 const Container = styled.div`
   max-width: 960px;
-  min-height: calc(100vh - 192px);
+  min-height: calc(100vh - 162px);
   margin: 0 auto;
   position: relative;
 `;

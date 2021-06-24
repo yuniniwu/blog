@@ -3,21 +3,23 @@ import { getAuthToken } from './utils';
 const BASE_URL = 'https://student-json-api.lidemy.me';
 
 export const getPost = () => {
-  return fetch(`${BASE_URL}/posts?_sort=createdAt&_order=desc`).then((res) =>
-    res.json()
-  );
+  return fetch(`${BASE_URL}/posts?_sort=createdAt&_order=desc`)
+    .then((res) => res.json())
+    .catch((err) => console.error('getPost API Error: ', err));
 };
 
 export const getPostByRange = (offset, limit) => {
   return fetch(
     `${BASE_URL}/posts?_sort=createdAt&_order=desc&_start=${offset}&_limit=${limit}&_expand=user`
-  ).then();
+  )
+    .then()
+    .catch((err) => console.error('getPostByRange API Error: ', err));
 };
 
 export const getArticle = (postId) => {
   return fetch(`${BASE_URL}/posts/${postId}?_expand=user`)
     .then((res) => res.json())
-    .catch((err) => console.log(err));
+    .catch((err) => console.error('getArticle API Error: ', err));
 };
 
 export const login = (username, password) => {
@@ -30,7 +32,9 @@ export const login = (username, password) => {
       username,
       password,
     }),
-  }).then((res) => res.json());
+  })
+    .then((res) => res.json())
+    .catch((err) => console.error('login API Error: ', err));
 };
 
 export const getMe = () => {
@@ -39,7 +43,9 @@ export const getMe = () => {
     headers: {
       authorization: `Bearer ${token}`,
     },
-  }).then((res) => res.json());
+  })
+    .then((res) => res.json())
+    .catch((err) => console.error('getMe API Error: ', err));
 };
 
 export const register = (username, password, nickname) => {
@@ -53,7 +59,9 @@ export const register = (username, password, nickname) => {
       username,
       password,
     }),
-  }).then((res) => res.json());
+  })
+    .then((res) => res.json())
+    .catch((err) => console.error('register API Error: ', err));
 };
 
 export const newPost = (title, body) => {
@@ -68,7 +76,9 @@ export const newPost = (title, body) => {
       title,
       body,
     }),
-  }).then((res) => res.json());
+  })
+    .then((res) => res.json())
+    .catch((err) => console.error('newPost API Error: ', err));
 };
 
 export const editPost = (id, title, body) => {
@@ -84,7 +94,9 @@ export const editPost = (id, title, body) => {
       body,
       createdAt: new Date().valueOf(),
     }),
-  }).then((res) => res.json());
+  })
+    .then((res) => res.json())
+    .catch((err) => console.error('editPost API Error: ', err));
 };
 
 export const deletePost = (id) => {
@@ -94,19 +106,21 @@ export const deletePost = (id) => {
     headers: {
       authorization: `Bearer ${token}`,
     },
-  }).then((res) => res.json());
+  })
+    .then((res) => res.json())
+    .catch((err) => console.error('deletePost API Error: ', err));
 };
 
 export const getAuthorArticles = (id) => {
-  return fetch(`${BASE_URL}/posts?userId=${id}&_expand=user`).then((res) =>
-    res.json()
-  );
+  return fetch(`${BASE_URL}/posts?userId=${id}&_expand=user`)
+    .then((res) => res.json())
+    .catch((err) => console.error('getAuthorArticles API Error: ', err));
 };
 
 export const getMessages = () => {
-  return fetch(`${BASE_URL}/comments?_sort=createdAt&_order=desc`).then((res) =>
-    res.json()
-  );
+  return fetch(`${BASE_URL}/comments?_sort=createdAt&_order=desc`)
+    .then((res) => res.json())
+    .catch((err) => console.error('getMessages API Error: ', err));
 };
 
 export const newMessages = (value) => {
@@ -116,5 +130,7 @@ export const newMessages = (value) => {
       'content-type': 'application/json',
     },
     body: JSON.stringify(value),
-  }).then((res) => res.json());
+  })
+    .then((res) => res.json())
+    .catch((err) => console.error('newMessages API Error: ', err));
 };

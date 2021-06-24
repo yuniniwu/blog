@@ -26,8 +26,12 @@ export default function Footer() {
   return (
     <Wrapper>
       <Text>© 2021 Yuni Wu</Text>
-      <MyLink href='https://github.com/yuniniwu/blog'>Source Code</MyLink>
-      <MyLink href='https://www.manypixels.co/gallery'>illustration ©</MyLink>
+      <MyLink href='https://github.com/yuniniwu/blog' target='_blank'>
+        Source Code
+      </MyLink>
+      <MyLink href='https://www.manypixels.co/gallery' target='_blank'>
+        illustration ©
+      </MyLink>
     </Wrapper>
   );
 }

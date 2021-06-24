@@ -4,10 +4,26 @@ import { useContext } from 'react';
 import { AuthContext } from '../../context.js';
 import { Container } from '../../style/commonLayout.js';
 import { MEDIA_QUERY_SM } from '../../style/breakpoint';
+import { FaQuoteLeft, FaQuoteRight } from 'react-icons/fa';
+import { ReactComponent as AboutImg } from '../../image/AboutImg.svg';
+
+const ImageWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+
+  & svg {
+    max-width: 100%;
+    height: auto;
+  }
+
+  ${MEDIA_QUERY_SM} {
+    width: 100%;
+  }
+`;
 
 const Title = styled.h2`
   font-size: 1.5rem;
-  margin: 1rem 0;
+  margin: 1rem auto;
   text-align: center;
 
   ${MEDIA_QUERY_SM} {
@@ -35,23 +51,14 @@ const UserInfo = styled.div`
 `;
 
 const Quote = styled.p`
-  width: 50%;
+  max-width: 80%;
+  width: calc(100vw - 2rem);
   font-size: 2rem;
   font-weight: bold;
   color: ${({ theme }) => theme.colors.text};
+  margin: 1rem auto;
 
-  ${MEDIA_QUERY_SM} {
-    width: 100%;
-    padding: 1rem;
-  }
-`;
-
-const Content = styled.p`
-  width: 50%;
-  white-space: pre-wrap;
-
-  ${MEDIA_QUERY_SM} {
-    width: 100%;
+  & span {
     padding: 1rem;
   }
 `;
@@ -67,25 +74,16 @@ export default function AboutPage() {
             About
             <Author>{user.username}</Author>
           </Title>
-
           <UserInfo>
-            <Quote>Either I will find a way, or I will make one.</Quote>
-            <Content>
-              Lorem ipsum dolor sit amet, cum mandamus euripidis ne. Enim
-              iracundia efficiendi ad vel. Et democritum repudiandae
-              definitiones eam. Duo autem dolore tritani id, vim error
-              reprehendunt at. Nec case eloquentiam referrentur id. At cum
-              ridens mentitum comprehensam, adhuc homero vim an, consul mentitum
-              concludaturque eu mel. Reque movet no vim, id dicam oblique duo.
-              Duo veniam oporteat ne, utinam ridens forensibus sit at. Est ea
-              verterem delicatissimi, case aliquam vix ei. Ad scripta impedit
-              oporteat vix. Vix elitr audiam singulis cu. Ius causae molestie
-              deserunt ea, cum ex meis integre scripserit. Blandit dissentiet
-              eam cu, ius id erat corpora, sea cu volumus imperdiet
-              definitionem. Et vidit debitis mea, vix quod menandri adversarium
-              ad.
-            </Content>
+            <Quote>
+              <FaQuoteLeft />
+              <span>Either I will find a way, or I will make one.</span>
+              <FaQuoteRight />
+            </Quote>
           </UserInfo>
+          <ImageWrapper>
+            <AboutImg />
+          </ImageWrapper>
         </>
       )}
     </Container>

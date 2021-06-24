@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getArticle, deletePost } from '../../WebAPI';
 import { useEffect, useState } from 'react';
-import { MEDIA_QUERY_MD, MEDIA_QUERY_SM } from '../../style/breakpoint';
+import { MEDIA_QUERY_SM } from '../../style/breakpoint';
 
 const ArticleContainer = styled.div`
   padding: 3rem;
@@ -18,12 +18,10 @@ const Title = styled.h2`
   line-height: 1.8rem;
   font-weight: bold;
 
-  /* 小於 768 */
   ${MEDIA_QUERY_SM} {
     font-size: 1.2rem;
     line-height: 1.5rem;
   }
-  clear: both;
 `;
 
 const ArticleInfo = styled.div`
@@ -35,15 +33,18 @@ const ArticleInfo = styled.div`
 
   ${MEDIA_QUERY_SM} {
     flex-direction: column;
+  }
 `;
 
 const Author = styled(Link)`
   text-decoration: none;
   margin-bottom: 0.5rem;
+
   &:hover {
     box-shadow: 0px -5px 0px 0px ${({ theme }) => theme.colors.button.dangerBg} inset;
   }
 `;
+
 const ArticleTime = styled.p`
   color: ${({ theme }) => theme.colors.placeholder};
 `;
@@ -60,6 +61,10 @@ const ArticleBody = styled.p`
   }
 `;
 
+const ButtonGroup = styled.div`
+  text-align: right;
+`;
+
 const EditArticleButton = styled(Link)`
   font-weight: bold;
   display: inline-block;
@@ -73,7 +78,6 @@ const EditArticleButton = styled(Link)`
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s;
-  float: right;
 
   &:hover {
     transform: scale(1.2);
@@ -109,14 +113,14 @@ export default function OneArticle({ id, user }) {
   return (
     <ArticleContainer>
       {isEdit && (
-        <>
+        <ButtonGroup>
           <EditArticleButton to={`/edit-page/${id}`} children='Edit' />
           <DeleteArticleButton
             to={`/`}
             onClick={handleArticleDelete}
             children='Delete'
           />
-        </>
+        </ButtonGroup>
       )}
       <Title>{article.title}</Title>
       <ArticleInfo>
@@ -131,6 +135,6 @@ export default function OneArticle({ id, user }) {
 }
 
 OneArticle.propTypes = {
-  id: PropTypes.string,
+  id: PropTypes.string.isRequired,
   user: PropTypes.object,
 };

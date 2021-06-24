@@ -8,12 +8,10 @@ import { CgClose } from 'react-icons/cg';
 import { MEDIA_QUERY_MD } from '../../style/breakpoint';
 import useRWD from '../../hooks/useRWD.js';
 import NavList from '../NavList';
-import { Container } from '../../style/commonLayout.js';
 
 const Wrapper = styled.header`
   max-width: 960px;
   margin: 0 auto;
-  /* min-height: calc(100vh - 132px); */
   display: flex;
   justify-content: space-between;
   align-items: center;
