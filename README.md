@@ -11,7 +11,10 @@
 
 PC           |  Mobile
 :-------------------------:|:-------------------------:
-![pc](https://user-images.githubusercontent.com/20063249/123165262-98506f80-d4a6-11eb-8291-e2332bf4f2bc.png)  |  ![mobile](https://user-images.githubusercontent.com/20063249/123165344-b027f380-d4a6-11eb-9794-d7e91fd38885.png)
+![pc](https://user-images.githubusercontent.com/20063249/123244722-c1104d80-d516-11eb-836e-e25500da7166.png)  |  ![mobile](https://user-images.githubusercontent.com/20063249/123244731-c2da1100-d516-11eb-8127-981ace4ebb71.png)
+
+
+
 
 #### 登入頁面、註冊頁面
 欄位空白會跳出錯誤訊息
