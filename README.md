@@ -1,5 +1,5 @@
 ## 部落格
-[DEMO](https://yuniniwu.github.io/blog/)
+[部落格 DEMO（想看網站請點這裡）](https://yuniniwu.github.io/blog/)
 - 使用技術：
   - React hooks
   - React Router
